@@ -1,61 +1,11 @@
 ---
 import "../styles/slider.css"
 import Layout from "../layouts/Layout.astro"
-import { SwiperSlider } from "../components/Slider"
+import { SwiperSlider } from "../components/Slider/Slider"
 ---
 
 <Layout title="Swiper Slider">
-  <div class="slider">
-    <h1>Swiper Slide</h1>
-    <div class="content">
-      <div class="left-content">
-        <SwiperSlider client:load />
-      </div>
-      <div class="right-content">
-        <div class="title">
-          <h2>Services</h2>
-          <span>事業内容</span>
-        </div>
-        <ul class="list">
-          <li class="item">
-            <div class="item-title">
-              <span class="number">01</span>
-              <p>サービス1</p>
-            </div>
-            <span>></span>
-          </li>
-          <li class="item">
-            <div class="item-title">
-              <span class="number">02</span>
-              <p>サービス2</p>
-            </div>
-            <span>></span>
-          </li>
-          <li class="item">
-            <div class="item-title">
-              <span class="number">03</span>
-              <p>サービス3</p>
-            </div>
-            <span>></span>
-          </li>
-          <li class="item">
-            <div class="item-title">
-              <span class="number">04</span>
-              <p>サービス4</p>
-            </div>
-            <span>></span>
-          </li>
-          <li class="item">
-            <div class="item-title">
-              <span class="number">05</span>
-              <p>サービス5</p>
-            </div>
-            <span>></span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  <SwiperSlider client:load />
 </Layout>
 
 <style>
