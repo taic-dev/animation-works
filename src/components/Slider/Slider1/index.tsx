@@ -1,5 +1,6 @@
 import "swiper/css";
 import "swiper/css/effect-fade";
+import "./style.css"
 import { useState } from "react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -25,7 +26,7 @@ export const SwiperSlider = () => {
           >
             {SLIDER_IMAGE_DATA.map(({ imageLink, altName }, index) => (
               <SwiperSlide key={index}>
-                <img src={`images/${imageLink}`} alt={altName} />
+                <img src={`../../../../images/slider/${imageLink}`} alt={altName} />
               </SwiperSlide>
             ))}
           </Swiper>
