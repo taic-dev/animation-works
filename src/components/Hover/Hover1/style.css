@@ -1,0 +1,50 @@
+@font-face {
+  font-family: Melete-Bold;
+  src: url('../../../../public/fonts/Melete-Bold.otf');
+}
+
+.hover-animation {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  font-family: Melete-Bold;
+}
+
+.hover-animation h1 {
+  line-height: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size: 60px;
+  text-align: center;
+  color: #333;
+  mix-blend-mode: difference;
+}
+
+.hover-animation span {
+  display: block;
+}
+
+.stalker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  width: 50px;
+  height: 50px;
+  border: solid 1px #000;
+  background-color: #fff;
+  border-radius: 50%;
+  transition-timing-function: linear;
+  transition-duration: 0.3s;
+  mix-blend-mode: difference;
+}
+
+.title {
+  width: fit-content;
+  transition-timing-function: ease-out;
+  transition-duration: 0.5s;
+}

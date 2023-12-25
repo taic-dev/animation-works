@@ -1,0 +1,38 @@
+---
+import './style.css'
+---
+
+<div class="hover-animation">
+  <div id="stalker" class="stalker"></div>
+  <h1>
+    <span class="title">HOVER</span>
+    <span class="title">ANIMATION</span>
+    <span class="title">IMAGE</span>
+  </h1>
+</div>
+
+<script>
+  const stalker = document.getElementById('stalker');
+  const title = Array.from(document.querySelectorAll<HTMLElement>('.title'));
+  console.log(title)
+  window.addEventListener('mousemove', (e) => {
+    if(stalker) {
+      const x = e.clientX - 30
+      const y = e.clientY - 30
+      stalker.style.transform = `translate(${x}px, ${y}px)`
+    }
+  })
+
+  title.forEach((v) => {
+    v.addEventListener('mouseover', () => {
+      v.style.transform = `scale(1.1)`
+    })
+  })
+
+  title.forEach((v) => {
+    v.addEventListener('mouseleave', () => {
+      v.style.transform = `scale(1.0)`
+    })
+  })
+
+</script>
