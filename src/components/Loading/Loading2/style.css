@@ -17,7 +17,9 @@
   z-index: 2;
 
   font-size: 200px;
+  line-height: 1;
   color: #fff;
+  letter-spacing: 15px;
   mix-blend-mode: difference;
 }
 
@@ -29,17 +31,6 @@
   font-size: 250px;
   line-height: 0.6;
   color: #fff;
+  letter-spacing: 15px;
   mix-blend-mode: difference;
-}
-
-.circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-
-  width: 10px;
-  height: 10px;
-  background-color: #000;
 }

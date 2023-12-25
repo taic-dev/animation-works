@@ -181,13 +181,3 @@ body {
     transform: translate(0, 105%);
   }
 }
-
-.catch-copy.is-active span:nth-child(1) { --delay: 0.06s; }
-.catch-copy.is-active span:nth-child(2) { --delay: 0.12s; }
-.catch-copy.is-active span:nth-child(3) { --delay: 0.18s; }
-.catch-copy.is-active span:nth-child(4) { --delay: 0.24s; }
-.catch-copy.is-active span:nth-child(5) { --delay: 0.3s; }
-.catch-copy.is-active span:nth-child(6) { --delay: 0.36s; }
-.catch-copy.is-active span:nth-child(7) { --delay: 0.42s; }
-.catch-copy.is-active span:nth-child(8) { --delay: 0.48s; }
-.catch-copy.is-active span:nth-child(9) { --delay: 0.54s; }
