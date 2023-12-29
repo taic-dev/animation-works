@@ -39,7 +39,7 @@
   background-color: #fff;
   border-radius: 50%;
   transition-timing-function: linear;
-  transition-duration: 0.3s;
+  transition-duration: 0.1s;
   mix-blend-mode: difference;
 }
 
