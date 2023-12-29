@@ -5,13 +5,18 @@
 
 .hover-animation {
   position: relative;
-  width: 100%;
-  height: 100vh;
+  width: auto;
+  height: calc(100vh - 100px);
+  margin: 50px;
+  border-radius: 15px;
   font-family: Melete-Bold;
+
+  background-size: cover;
+  background-position: center;
+  background-image: url('../../../../public/images/hover/bg.jpg');
 }
 
 .hover-animation h1 {
-  line-height: 2;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -19,8 +24,7 @@
 
   font-size: 60px;
   text-align: center;
-  color: #333;
-  mix-blend-mode: difference;
+  color: #fff;
 }
 
 .hover-animation span {
@@ -41,10 +45,30 @@
   transition-timing-function: linear;
   transition-duration: 0.1s;
   mix-blend-mode: difference;
+  pointer-events: none
+}
+
+.hover-animation-title {
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.hover-animation-title > img {
+  width: 350px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+
+  opacity: 0;
+  pointer-events: none;
 }
 
 .title {
   width: fit-content;
+  line-height: 1;
   transition-timing-function: ease-out;
   transition-duration: 0.5s;
+  mix-blend-mode: difference;
 }

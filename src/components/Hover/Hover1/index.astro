@@ -5,16 +5,26 @@ import './style.css'
 <div class="hover-animation">
   <div id="stalker" class="stalker"></div>
   <h1>
-    <span class="title">HOVER</span>
-    <span class="title">ANIMATION</span>
-    <span class="title">IMAGE</span>
+    <div class="hover-animation-title">
+      <span class="title">HOVER</span>
+      <img src="../../../images/hover/image1.jpg" alt="Hover Animation Image">
+    </div>
+    <div class="hover-animation-title">
+      <span class="title">ANIMATION</span>
+      <img src="../../../images/hover/image2.jpg" alt="Hover Animation Image">
+    </div>
+    <div class="hover-animation-title">
+      <span class="title">IMAGE</span>
+      <img src="../../../images/hover/image3.jpg" alt="Hover Animation Image">
+    </div>
   </h1>
 </div>
 
 <script>
+  import { gsap } from 'gsap'
+
   const stalker = document.getElementById('stalker');
   const title = Array.from(document.querySelectorAll<HTMLElement>('.title'));
-  console.log(title)
   window.addEventListener('mousemove', (e) => {
     if(stalker) {
       const x = e.clientX - 30
@@ -24,14 +34,34 @@ import './style.css'
   })
 
   title.forEach((v) => {
-    v.addEventListener('mouseover', () => {
-      v.style.transform = `scale(1.1)`
+    v.addEventListener('mouseenter', (e) => {
+      gsap.to(v.nextElementSibling, {
+        opacity: 1,
+        x: e.offsetX / 2,
+        y: e.offsetY / 2,
+        scaleX: 1.1,
+        filter: 'hue-rotate(300deg) contrast(2)',
+        ease: 'expo.out'
+      })
+    })
+
+    v.addEventListener('mousemove', (e) => {
+      gsap.to(v.nextElementSibling, { 
+        x: e.offsetX / 2,
+        y: e.offsetY / 2,
+        scaleX: 1.1,
+        filter: 'hue-rotate(300deg) contrast(2)',
+        ease: 'expo.out'
+      })
     })
   })
 
   title.forEach((v) => {
     v.addEventListener('mouseleave', () => {
-      v.style.transform = `scale(1.0)`
+      gsap.to(v.nextElementSibling, { 
+        scaleX: 0,
+        opacity: 0,
+      })
     })
   })
 
