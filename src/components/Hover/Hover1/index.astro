@@ -2,29 +2,52 @@
 import './style.css'
 ---
 
-<div class="hover-animation">
-  <div id="stalker" class="stalker"></div>
-  <h1>
-    <div class="hover-animation-title">
-      <span class="title">HOVER</span>
-      <img src="../../../images/hover/image1.jpg" alt="Hover Animation Image">
-    </div>
-    <div class="hover-animation-title">
-      <span class="title">ANIMATION</span>
-      <img src="../../../images/hover/image2.jpg" alt="Hover Animation Image">
-    </div>
-    <div class="hover-animation-title">
-      <span class="title">IMAGE</span>
-      <img src="../../../images/hover/image3.jpg" alt="Hover Animation Image">
-    </div>
-  </h1>
+<div class="wrapper">
+  <div class="hover-animation">
+    <h1>
+      <div class="hover-animation-title">
+        <span class="title">HOVER</span>
+        <img src="../../../images/hover/image1.jpg" alt="Hover Animation Image">
+      </div>
+      <div class="hover-animation-title">
+        <span class="title">ANIMATION</span>
+        <img src="../../../images/hover/image2.jpg" alt="Hover Animation Image">
+      </div>
+      <div class="hover-animation-title">
+        <span class="title">IMAGE</span>
+        <img src="../../../images/hover/image3.jpg" alt="Hover Animation Image">
+      </div>
+    </h1>
+  </div>
 </div>
 
 <script>
   import { gsap } from 'gsap'
 
+  const main = document.querySelector('.hover-animation');
   const stalker = document.getElementById('stalker');
   const title = Array.from(document.querySelectorAll<HTMLElement>('.title'));
+  const tl = gsap.timeline()
+
+  tl.to(main, {
+    duration: 0.5,
+    scaleX: 1,
+    width: '100%',
+  }, '+=0.5')
+  .to(main, {
+    scaleY: 1,
+    height: '100vh',
+  }, '+=0.5')
+  .to(main, {
+    height: 'calc(100vh - 100px)',
+    margin: '50px',
+    borderRadius: '25px'
+  }, '+=0.5')
+  .to(title, {
+    opacity: 1,
+    visibility: 'visible'
+  }, '+=0.1')
+
   window.addEventListener('mousemove', (e) => {
     if(stalker) {
       const x = e.clientX - 30
