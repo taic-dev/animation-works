@@ -1,10 +1,42 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import "../styles/sass/styles.scss"
+import "./style.css"
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<p><a href="/loading">Loading</a></p>
-		<p><a href="/slider">Slider</a></p>
-	</main>
-</Layout>
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>TOP</title>
+	</head>
+	<body>
+		<main>
+			<div>
+				<h1>Loading</h1>
+				<ul>
+					<li><a href="/loading/loading1">loading1</a></li>
+					<li><a href="/loading/loading2">loading2</a></li>
+					<li><a href="/loading/loading3">loading3</a></li>
+				</ul>
+			</div>
+
+			<div>
+				<h1>Hover</h1>
+				<ul>
+					<li><a href="/hover/hover1">hover1</a></li>
+				</ul>
+			</div>
+	
+			<div>
+				<h1>Slider</h1>
+				<ul>
+					<li><a href="/slider/slider1">slider1</a></li>
+				</ul>
+			</div>
+		</main>
+	</body>
+</html>

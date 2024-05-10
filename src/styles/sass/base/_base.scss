@@ -1,0 +1,9 @@
+body {
+  color: #333;
+}
+
+.h1 {
+  &__text {
+    color: red;
+  }
+}

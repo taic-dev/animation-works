@@ -1,13 +1,38 @@
 ---
-import Layout from "../../../layouts/Layout.astro"
-import Loading from "../../../components/Loading/Loading3/index.astro"
+import "../../../styles/sass/styles.scss"
+import './style.css'
 ---
 
-<Layout title="Loading">
-  <Loading />
-</Layout>
-
-<style>
-  
-</style>
-  
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Loading3</title>
+	</head>
+	<body>
+    <div class="wrapper">
+      <div class="loading">
+        <div class="loading-text"></div>
+      </div>
+      <div class="fv">
+        <div class="fv-img">
+          <img src="../../../../public/images/loading/fv1.jpg" alt="fv">
+        </div>
+        <h1>Baunk Font</h1>
+      </div>
+    </div>
+    
+    <script>
+      import { Main } from './script'
+    
+      window.addEventListener('load', () => {
+        new Main()
+      })
+    
+    </script>
+  </body>
+</html>
