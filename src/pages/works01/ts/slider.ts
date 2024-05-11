@@ -1,6 +1,7 @@
 export class Slider {
   sections: Element[];
   pagination: Element[];
+  nowPosition: number;
   rects: number[];
   index: number;
   isScroll: boolean;
@@ -9,15 +10,16 @@ export class Slider {
     this.sections = [...document.querySelectorAll(".section")];
     this.pagination = [...document.querySelectorAll(".pagination span")];
     this.rects = [];
+    this.nowPosition = window.scrollY;
     this.isScroll = false;
     this.index = 0;
   }
 
   _getPosition(elements: Element[]) {
-    for (const section of elements) {
-      const rect = section.getBoundingClientRect();
+    elements.forEach((element, index) => {
+      const rect = element.getBoundingClientRect();
       this.rects.push(rect.top);
-    }
+    });
   }
 
   _onScroll(e: WheelEvent) {
@@ -67,6 +69,10 @@ export class Slider {
 
   _onResize() {
     this._getPosition(this.sections);
+  }
+
+  _onReload() {
+    window.scroll({ top: 0 })
   }
 
   init() {
