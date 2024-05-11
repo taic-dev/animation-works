@@ -2,8 +2,9 @@ import { Slider } from "./slider"
 
 const slider = new Slider();
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   slider.init();
+  slider._Pagination()
 })
 
 window.addEventListener('wheel', (e: WheelEvent) => {
