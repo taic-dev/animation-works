@@ -58,8 +58,8 @@
 }
 
 @mixin slideInFormBottom {
-  -webkit-clip-path: inset(100% 0 0 0);
   clip-path: inset(100% 0 0 0);
+  -webkit-clip-path: inset(100% 0 0 0);
   animation-name: slideInFormBottom;
   animation-duration: 0.5s;
   animation-delay: 1s;
