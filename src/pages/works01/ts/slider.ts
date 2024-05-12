@@ -15,7 +15,7 @@ export class Slider {
     this.index = 0;
   }
 
-  _getPosition(elements: Element[]) {
+  _setPosition(elements: Element[]) {
     elements.forEach((element, index) => {
       const rect = element.getBoundingClientRect();
       this.rects.push(rect.top);
@@ -68,7 +68,7 @@ export class Slider {
   }
 
   _onResize() {
-    this._getPosition(this.sections);
+    this._setPosition(this.sections);
   }
 
   _onReload() {
@@ -76,7 +76,7 @@ export class Slider {
   }
 
   init() {
-    this._getPosition(this.sections);
+    this._setPosition(this.sections);
     this._Pagination();
   }
 }
