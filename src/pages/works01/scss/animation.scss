@@ -1,3 +1,25 @@
+@mixin sequentialString($text-color) {
+  position: relative;
+  top: 0;
+  text-shadow: 0 50px 0 var($text-color);
+
+  animation-name: sequentialString;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+
+  @include animationDelay(11, 0.05);
+
+  @keyframes sequentialString {
+    0% {
+      top: 0;
+    }
+    100% {
+      top: -50px;
+    }
+  }
+}
+
 @mixin scaleDown {
   transform: scale(1.5);
   animation-name: scaleDown;
@@ -7,7 +29,7 @@
 
   @keyframes scaleDown {
     0% {
-      transform: scale(1.5);
+      transform: scale(1.3);
     }
     100% {
       transform: scale(1.0);
@@ -16,16 +38,16 @@
 
 }
 
-@mixin stringOpacity {
+@mixin opacityString {
   opacity: 0.1;
-  animation-name: stringOpacity;
+  animation-name: opacityString;
   animation-duration: 1s;
   animation-fill-mode: forwards;
   animation-timing-function: ease-in;
 
-  @include animationDelay(75);
+  @include animationDelay(75, 0.015);
 
-  @keyframes stringOpacity {
+  @keyframes opacityString {
     0% {
       opacity: 1;
     }
@@ -36,13 +58,13 @@
 }
 
 @mixin slideInFormBottom {
+  -webkit-clip-path: inset(100% 0 0 0);
+  clip-path: inset(100% 0 0 0);
   animation-name: slideInFormBottom;
   animation-duration: 0.5s;
   animation-delay: 1s;
   animation-fill-mode: forwards;
   animation-timing-function: ease-out;
-  -webkit-clip-path: inset(100% 0 0 0);
-  clip-path: inset(100% 0 0 0);
 
   @keyframes slideInFormBottom {
     0% {
@@ -56,10 +78,10 @@
   }
 }
 
-@mixin animationDelay($count) {
+@mixin animationDelay($count, $delay-time) {
   @for $i from 1 through $count {
     &:nth-child(#{$i}) {
-      animation-delay: #{$i * 0.015}s;
+      animation-delay: #{$i * $delay-time}s;
     }
   }
 }
