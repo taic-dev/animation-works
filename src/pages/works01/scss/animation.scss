@@ -1,3 +1,21 @@
+@mixin scaleDown {
+  transform: scale(1.5);
+  animation-name: scaleDown;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+
+  @keyframes scaleDown {
+    0% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1.0);
+    }
+  }
+
+}
+
 @mixin stringOpacity {
   opacity: 0.1;
   animation-name: stringOpacity;
