@@ -17,6 +17,27 @@
   }
 }
 
+@mixin slideInFormBottom {
+  animation-name: slideInFormBottom;
+  animation-duration: 0.5s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  -webkit-clip-path: inset(100% 0 0 0);
+  clip-path: inset(100% 0 0 0);
+
+  @keyframes slideInFormBottom {
+    0% {
+      -webkit-clip-path: inset(100% 0 0 0);
+      clip-path: inset(100% 0 0 0);
+    }
+    100% {
+      -webkit-clip-path: inset(0 0 0 0);
+      clip-path: inset(0 0 0 0);
+    }
+  }
+}
+
 @mixin animationDelay($count) {
   @for $i from 1 through $count {
     &:nth-child(#{$i}) {

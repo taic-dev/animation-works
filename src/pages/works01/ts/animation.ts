@@ -1,28 +1,31 @@
 export class Animation {
-  topTitle: Element | null
+  topTitle: Element | null;
+  topText: Element | null;
 
   constructor() {
-    this.topTitle = document.querySelector('.top__title h2');
+    this.topTitle = document.querySelector(".top__title h2");
+    this.topText = document.querySelector(".top__text p");
   }
 
-  _stringToSpan(element: Element) {
+  _stringToSpan(element: Element, splitString: string) {
     let newString = "";
-    const stringArray = element.textContent?.split('');
-    
+    const stringArray = element.textContent?.split(splitString);
+
     stringArray?.forEach((string) => {
-      newString += `<span>${string}</span>`
+      newString += `<span>${string}${splitString}</span>`;
     });
 
-    element.innerHTML = newString
+    element.innerHTML = newString;
   }
 
   _topAnimation() {
-    if(!this.topTitle) return;
-    this._stringToSpan(this.topTitle)
+    if (!this.topTitle || !this.topText) return;
+
+    this._stringToSpan(this.topTitle, "");
+    this._stringToSpan(this.topText, " ");
   }
 
   init() {
-    this._topAnimation()
+    this._topAnimation();
   }
-
 }

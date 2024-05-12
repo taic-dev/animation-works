@@ -166,7 +166,7 @@ body {
       font-size: 3vw;
 
       span {
-        @include stringOpacity
+        @include stringOpacity;
       }
 
     }
@@ -175,7 +175,10 @@ body {
   &__text {
     p {
       line-height: 2;
-      overflow: hidden;
+      
+      span {
+        @include slideInFormBottom;
+      }
     }
   }
 
