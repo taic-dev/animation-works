@@ -1,0 +1,26 @@
+@mixin stringOpacity {
+  opacity: 0.1;
+  animation-name: stringOpacity;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+
+  @include animationDelay(75);
+
+  @keyframes stringOpacity {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
+@mixin animationDelay($count) {
+  @for $i from 1 through $count {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.015}s;
+    }
+  }
+}

@@ -1,3 +1,5 @@
+@use './animation.scss' as *;
+
 @font-face {
   font-family: "sixCaps";
   src:
@@ -140,6 +142,12 @@ body {
   }
 }
 
+.tag {
+  display: block;
+  font-size: 1.5vw;
+  margin-bottom: 30px;
+}
+
 .top {
   display: flex;
 
@@ -154,15 +162,13 @@ body {
   &__title {
     margin-bottom: 30px;
 
-    span {
-      display: block;
-      font-size: 1.5vw;
-      margin-bottom: 30px;
-    }
-
     h2 {
       font-size: 3vw;
-      opacity: 0.1;
+
+      span {
+        @include stringOpacity
+      }
+
     }
   }
 
