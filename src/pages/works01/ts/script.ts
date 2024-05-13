@@ -17,6 +17,7 @@ window.addEventListener('wheel', (e: WheelEvent) => {
 
 window.addEventListener('resize', () => {
   slider._onResize();
+  animation._onResize();
 })
 
 window.addEventListener('beforeunload', () => {

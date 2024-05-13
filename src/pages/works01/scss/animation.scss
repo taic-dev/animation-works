@@ -1,21 +1,18 @@
-@mixin sequentialString($text-color) {
+@mixin sequentialString($animation-name, $text-color, $number) {
   position: relative;
   top: 0;
-  text-shadow: 0 50px 0 var($text-color);
-
-  animation-name: sequentialString;
+  text-shadow: 0 #{$number}px 0 var($text-color);
+  animation-name: $animation-name;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
   animation-timing-function: ease-in-out;
 
-  @include animationDelay(11, 0.05);
-
-  @keyframes sequentialString {
+  @keyframes #{$animation-name} {
     0% {
       top: 0;
     }
     100% {
-      top: -50px;
+      top: -#{$number}px;
     }
   }
 }
@@ -45,8 +42,6 @@
   animation-fill-mode: forwards;
   animation-timing-function: ease-in;
 
-  @include animationDelay(75, 0.015);
-
   @keyframes opacityString {
     0% {
       opacity: 1;
@@ -74,6 +69,23 @@
     100% {
       -webkit-clip-path: inset(0 0 0 0);
       clip-path: inset(0 0 0 0);
+    }
+  }
+}
+
+@mixin loopText {
+  transform: translateX(0);
+  animation-name: loopText;
+  animation-duration: 30s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  @keyframes loopText {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
     }
   }
 }

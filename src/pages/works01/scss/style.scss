@@ -7,6 +7,9 @@
 
   --main-font: sixCaps;
   --sub-font: nagoda;
+
+  --diagonal: 5px;
+  --offset-x: 0px;
 }
 
 @font-face {
@@ -50,17 +53,16 @@ body {
   position: relative;
 }
 
-.slider {
-  .section {
-    height: 100vh;
+.section {
+  height: 100vh;
+  overflow: hidden;
 
-    &:nth-child(even) {
-      background-color: var(--sub-color);
-    }
+  &:nth-child(even) {
+    background-color: var(--sub-color);
+  }
 
-    &:nth-child(odd) {
-      background-color: var(--main-color);
-    }
+  &:nth-child(odd) {
+    background-color: var(--main-color);
   }
 }
 
@@ -80,7 +82,8 @@ body {
     display: block;
     width: 10px;
     height: 10px;
-    background-color: var(--other-color);
+    border: solid 1px var(--other-color);
+    background-color: var(--main-color);
     border-radius: 50%;
     cursor: pointer;
     transition: 0.5s;
@@ -114,9 +117,9 @@ body {
   &__desc {
     width: 50%;
     margin-top: 120px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px;
   }
 
   &__title {
@@ -153,14 +156,78 @@ body {
   }
 }
 
+.final {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 3rem;
+
+  &__desc {
+    position: relative;
+    z-index: 1;
+
+    margin-top: 120px;
+    padding-bottom: 2rem;
+  }
+
+  &__title {
+    font-size: 5vw;
+    overflow: hidden;
+  }
+
+  &__text {
+    margin-top: 5rem;
+    font-size: 3vw;
+    overflow: hidden;
+
+    a {
+      color: var(--sub-color);
+      text-decoration: underline;
+      text-decoration-color: var(--sub-color);
+    }
+  }
+
+  .loop-text {
+    position: absolute;
+    left: 0;
+    bottom: 2rem;
+    z-index: 1;
+
+    font-size: 8vw;
+    mix-blend-mode: difference;
+
+    p {
+      text-wrap: nowrap;
+      color: var(--sub-color);
+      text-shadow: var(--offset-x) 0 var(--sub-color),
+        calc(var(--offset-x) * 2) 0 var(--sub-color),
+        calc(var(--offset-x) * 3) 0 var(--sub-color);
+    }
+  }
+
+  .circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--diagonal);
+    height: var(--diagonal);
+    background: var(--other-color);
+    border-radius: 50%;
+    transition: 1s;
+  }
+}
+
 .section.is-active {
   .tag {
     p span {
-      @include sequentialString(--sub-color);
+      @include sequentialString(sequentialTag, --sub-color, 50);
+      @include animationDelay(11, 0.05);
     }
 
     &.reverse p span {
-      @include sequentialString(--main-color);
+      @include sequentialString(sequentialTag, --main-color, 50);
+      @include animationDelay(11, 0.05);
     }
   }
 
@@ -168,6 +235,7 @@ body {
     &__title {
       h2 span {
         @include opacityString;
+        @include animationDelay(75, 0.015);
       }
     }
 
@@ -180,6 +248,26 @@ body {
     &__image {
       img {
         @include scaleDown;
+      }
+    }
+  }
+
+  .final {
+    &__title {
+      h2 span {
+        @include sequentialString(sequentialFinalTitle, --sub-color, 100);
+        @include animationDelay(30, 0.03);
+      }
+    }
+
+    .circle {
+      width: var(--diagonal);
+      height: var(--diagonal);
+    }
+
+    .loop-text {
+      p {
+        @include loopText;
       }
     }
   }

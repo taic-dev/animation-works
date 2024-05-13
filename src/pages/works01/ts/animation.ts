@@ -1,13 +1,16 @@
 export class Animation {
   observer: IntersectionObserver | undefined;
+  circleObserver: IntersectionObserver | undefined;
   options: IntersectionObserverInit | undefined;
   sections: Element[] | null;
   tags: Element[] | null;
   buildingTitle: Element[] | null;
   buildingText: Element[] | null;
+  finalTitle: Element | null;
+  circle: HTMLElement | null;
+  loopText: HTMLElement | null;
 
   constructor() {
-    this.observer;
     this.options = {
       root: null,
       rootMargin: "-50% 0px",
@@ -17,13 +20,19 @@ export class Animation {
     this.tags = [...document.querySelectorAll(".tag p")];
     this.buildingTitle = [...document.querySelectorAll(".building__title h2")];
     this.buildingText = [...document.querySelectorAll(".building__text p")];
+    this.buildingTitle = [...document.querySelectorAll(".building__title h2")];
+    this.finalTitle = document.querySelector(".final__title h2");
+    this.circle = document.querySelector(".circle");
+    this.loopText = document.querySelector(".loop-text p");
+
+    this._moveCircle = this._moveCircle.bind(this);
   }
 
   _setObserver(
     callback: IntersectionObserverCallback,
     options: IntersectionObserverInit | undefined
   ) {
-    this.observer = new IntersectionObserver(callback, options);
+    return new IntersectionObserver(callback, options);
   }
 
   _stringToSpan(element: Element, splitString: string) {
@@ -37,8 +46,21 @@ export class Animation {
     element.innerHTML = newString;
   }
 
+  _calcDiagonal() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const diagonal = Math.sqrt(width ** 2 + height ** 2);
+    return diagonal;
+  }
+
   _setAnimation() {
-    if (!this.tags || !this.buildingTitle || !this.buildingText) return;
+    if (
+      !this.tags ||
+      !this.buildingTitle ||
+      !this.buildingText ||
+      !this.finalTitle
+    )
+      return;
 
     this.tags.forEach((v) => {
       this._stringToSpan(v, "");
@@ -49,6 +71,7 @@ export class Animation {
     this.buildingText.forEach((v) => {
       this._stringToSpan(v, " ");
     });
+    this._stringToSpan(this.finalTitle, "");
   }
 
   _startAnimation(entries: IntersectionObserverEntry[]) {
@@ -59,14 +82,37 @@ export class Animation {
     });
   }
 
+  _moveCircle(entries: IntersectionObserverEntry[]) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        (entry.target as HTMLElement).style.setProperty(
+          "--diagonal",
+          `${this._calcDiagonal()}px`
+        );
+      }
+    });
+  }
+
+  _loopText() {
+    if (!this.loopText) return;
+    const { width } = this.loopText.getBoundingClientRect();
+    this.loopText.style.setProperty("--offset-x", `${width}px`);
+  }
+
+  _onResize() {
+    if (!this.circle) return;
+    this.circle.style.setProperty("--diagonal", `${this._calcDiagonal()}px`);
+    this._loopText();
+  }
+
   init() {
     this._setAnimation();
-    this._setObserver(this._startAnimation, this.options);
-
-    this.sections?.forEach((tag) => {
-      this.observer?.observe(tag);
+    this.observer = this._setObserver(this._startAnimation, this.options);
+    this.circleObserver = this._setObserver(this._moveCircle, this.options);
+    this.sections?.forEach((section) => {
+      this.observer?.observe(section);
     });
-
-
+    this.circle && this.circleObserver?.observe(this.circle);
+    this._loopText();
   }
 }
