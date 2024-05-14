@@ -27,6 +27,48 @@ body {
   overflow: hidden;
 }
 
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--main-color);
+
+  &__title {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    
+    p {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 999;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4vw;
+      width: 100%;
+      font-size: 5vw;
+
+      span {
+        &:nth-child(2) {
+          display: block;
+          width: 0.5vw;
+          height: 8vw;
+          background-color: #333;
+        }
+      }
+    }
+  }
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -194,7 +236,6 @@ body {
     z-index: 1;
 
     font-size: 8vw;
-    mix-blend-mode: difference;
 
     p {
       text-wrap: nowrap;
