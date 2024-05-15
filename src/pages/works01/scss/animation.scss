@@ -18,7 +18,7 @@
 }
 
 @mixin scaleDown {
-  transform: scale(1.5);
+  transform: scale(1.3);
   animation-name: scaleDown;
   animation-duration: 1.5s;
   animation-fill-mode: forwards;
@@ -52,23 +52,95 @@
   }
 }
 
-@mixin slideInFormBottom {
+@mixin slideInFromLeft() {
+  transform: translateX(calc(100% + 3vw));
+  
+  animation-name: slideInFromLeft;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+
+  @keyframes slideInFromLeft {
+    0% {
+      transform: translateX(calc(100% + 3vw));
+    }
+    50% {
+      transform: translateX(0) skew(-30deg);
+    }
+    80% {
+      transform: translateX(0) skew(10deg);
+    }
+    100% {
+      transform: translateX(0) skew(0deg);
+    }
+  }
+}
+
+@mixin slideInFromRight() {
+  transform: translateX(calc(-100% - 3vw));
+  
+  animation-name: slideInFromRight;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(calc(-100% - 3vw));
+    }
+    50% {
+      transform: translateX(0) skew(30deg);
+    }
+    80% {
+      transform: translateX(0) skew(-10deg);
+    }
+    100% {
+      transform: translateX(0) skew(0deg);
+    }
+  }
+}
+
+
+@mixin slideInFromBottom($delay-time) {
   clip-path: inset(100% 0 0 0);
   -webkit-clip-path: inset(100% 0 0 0);
-  animation-name: slideInFormBottom;
+  animation-name: slideInFromBottom;
   animation-duration: 0.5s;
-  animation-delay: 1s;
+  animation-delay: #{$delay-time}s;
   animation-fill-mode: forwards;
   animation-timing-function: ease-out;
 
-  @keyframes slideInFormBottom {
+  @keyframes slideInFromBottom {
     0% {
       -webkit-clip-path: inset(100% 0 0 0);
       clip-path: inset(100% 0 0 0);
     }
     100% {
-      -webkit-clip-path: inset(0 0 0 0);
-      clip-path: inset(0 0 0 0);
+      -webkit-clip-path: inset(0);
+      clip-path: inset(0);
+    }
+  }
+}
+
+@mixin slideOutFromBottom($delay-time) {
+  clip-path: inset(0);
+  -webkit-clip-path: inset(0);
+  animation-name: slideOutFromBottom;
+  animation-duration: 0.5s;
+  animation-delay: #{$delay-time}s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+
+  @keyframes slideOutFromBottom {
+    0% {
+      -webkit-clip-path: inset(0);
+      clip-path: inset(0);
+    }
+    100% {
+      -webkit-clip-path: inset(0 0 100% 0);
+      clip-path: inset(0 0 100% 0);
     }
   }
 }

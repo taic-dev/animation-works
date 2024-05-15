@@ -1,7 +1,11 @@
+import gsap from "gsap";
+
 export class Animation {
+  tl: gsap.core.Timeline;
   observer: IntersectionObserver | undefined;
   circleObserver: IntersectionObserver | undefined;
   options: IntersectionObserverInit | undefined;
+  loading: Element | null;
   sections: Element[] | null;
   tags: Element[] | null;
   buildingTitle: Element[] | null;
@@ -11,11 +15,13 @@ export class Animation {
   loopText: HTMLElement | null;
 
   constructor() {
+    this.tl = gsap.timeline();
     this.options = {
       root: null,
       rootMargin: "-50% 0px",
       threshold: 0,
     };
+    this.loading = document.querySelector(".loading");
     this.sections = [...document.querySelectorAll(".section")];
     this.tags = [...document.querySelectorAll(".tag p")];
     this.buildingTitle = [...document.querySelectorAll(".building__title h2")];
@@ -109,10 +115,24 @@ export class Animation {
     this._setAnimation();
     this.observer = this._setObserver(this._startAnimation, this.options);
     this.circleObserver = this._setObserver(this._moveCircle, this.options);
-    this.sections?.forEach((section) => {
-      this.observer?.observe(section);
-    });
-    this.circle && this.circleObserver?.observe(this.circle);
-    this._loopText();
+
+    this.tl
+      .add(() => {
+        (() => {
+          this.loading && this.observer?.observe(this.loading);
+        })();
+      })
+      .add(() => {
+        (() => {
+          this.circle && this.circleObserver?.observe(this.circle);
+          this.sections?.forEach((section) => {
+            this.observer?.observe(section);
+          });
+          this._loopText();
+        })();
+      }, "+=3.2")
+      .add(() => {
+        (() => this.loading && this.loading.classList.add("is-hidden"))();
+      }, "+=1");
   }
 }
