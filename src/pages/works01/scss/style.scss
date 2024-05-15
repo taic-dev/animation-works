@@ -27,6 +27,78 @@ body {
   overflow: hidden;
 }
 
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--sub-color);
+
+  &__inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--main-color);
+  }
+
+  &__title {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    &-inner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 999;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      font-size: 5vw;
+
+      p {
+        overflow: hidden;
+
+        &:nth-child(1) {
+          color: var(--sub-color);
+          padding-left: 2vw;
+          padding-right: 3vw;
+        }
+
+        &:nth-child(3) {
+          padding-left: 3vw;
+          padding-right: 2vw;
+        }
+
+        span {
+          position: relative;
+          display: block;
+        }
+      }
+
+      > span {
+        display: block;
+        width: 0.5vw;
+        height: 0;
+        background-color: #333;
+        transition: 0.5s 0.5s;
+      }
+    }
+  }
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -152,6 +224,7 @@ body {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transform: scale(1.3);
     }
   }
 }
@@ -194,7 +267,6 @@ body {
     z-index: 1;
 
     font-size: 8vw;
-    mix-blend-mode: difference;
 
     p {
       text-wrap: nowrap;
@@ -218,56 +290,95 @@ body {
   }
 }
 
-.section.is-active {
-  .tag {
-    p span {
-      @include sequentialString(sequentialTag, --sub-color, 50);
-      @include animationDelay(11, 0.05);
+.is-active {
+  &.is-hidden {
+    display: none;
+  }
+
+  &.loading {
+    @include slideOutFromBottom(2.9);
+  }
+
+  .loading {
+    &__inner {
+      @include slideOutFromBottom(2.7);
     }
 
-    &.reverse p span {
-      @include sequentialString(sequentialTag, --main-color, 50);
-      @include animationDelay(11, 0.05);
+    &__title {
+      &-inner {
+        @include slideOutFromBottom(2.5);
+        p {
+          &:nth-child(1) {
+            span {
+              @include slideInFromLeft();
+            }
+          }
+
+          &:nth-child(3) {
+            span {
+              @include slideInFromRight();
+            }
+          }
+        }
+
+        > span {
+          height: 7vw;
+        }
+      }
     }
   }
 
-  .building {
-    &__title {
-      h2 span {
-        @include opacityString;
-        @include animationDelay(75, 0.015);
-      }
-    }
-
-    &__text {
+  &.section {
+    .tag {
       p span {
-        @include slideInFormBottom;
+        @include sequentialString(sequentialTag, --sub-color, 50);
+        @include animationDelay(11, 0.05);
+      }
+
+      &.reverse p span {
+        @include sequentialString(sequentialTag, --main-color, 50);
+        @include animationDelay(11, 0.05);
       }
     }
 
-    &__image {
-      img {
-        @include scaleDown;
+    .building {
+      &__title {
+        h2 span {
+          @include opacityString;
+          @include animationDelay(75, 0.015);
+        }
+      }
+
+      &__text {
+        p span {
+          @include slideInFromBottom(1);
+        }
+      }
+
+      &__image {
+        img {
+          @include scaleDown;
+        }
       }
     }
-  }
 
-  .final {
-    &__title {
-      h2 span {
-        @include sequentialString(sequentialFinalTitle, --sub-color, 100);
-        @include animationDelay(30, 0.03);
+    .final {
+      &__title {
+        h2 span {
+          @include sequentialString(sequentialFinalTitle, --sub-color, 100);
+          @include animationDelay(30, 0.03);
+        }
       }
-    }
 
-    .circle {
-      width: var(--diagonal);
-      height: var(--diagonal);
-    }
+      .circle {
+        width: var(--diagonal);
+        height: var(--diagonal);
+      }
 
-    .loop-text {
-      p {
-        @include loopText;
+      .loop-text {
+        p {
+          @include loopText;
+        }
       }
     }
   }
