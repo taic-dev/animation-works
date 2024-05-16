@@ -1,4 +1,5 @@
 @use "./animation.scss" as *;
+@use "./variables.scss" as *;
 
 :root {
   --main-color: #eae9d3;
@@ -93,7 +94,7 @@ body {
         width: 0.5vw;
         height: 0;
         background-color: #333;
-        transition: 0.5s 0.5s;
+        transition: $duration $easing-transform 0.5s;
       }
     }
   }
@@ -296,7 +297,7 @@ body {
   }
 
   &.loading {
-    @include slideOutFromBottom(2.9);
+    @include slideOutFromBottom(3.4);
   }
 
   .loading {
@@ -345,7 +346,7 @@ body {
       &__title {
         h2 span {
           @include opacityString;
-          @include animationDelay(75, 0.015);
+          @include animationDelay(75, 0.02);
         }
       }
 

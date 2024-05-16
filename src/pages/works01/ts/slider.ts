@@ -1,3 +1,7 @@
+import gsap from "gsap";
+import CustomEase from "gsap/CustomEase";
+import { EASING } from "./constants";
+gsap.registerPlugin(CustomEase);
 export class Slider {
   sections: Element[];
   pagination: Element[];
@@ -5,6 +9,7 @@ export class Slider {
   rects: number[];
   index: number;
   isScroll: boolean;
+  target: { value: number };
 
   constructor() {
     this.sections = [...document.querySelectorAll(".section")];
@@ -13,6 +18,7 @@ export class Slider {
     this.nowPosition = window.scrollY;
     this.isScroll = false;
     this.index = 0;
+    this.target = { value: 0 };
   }
 
   _setPosition(elements: Element[]) {
@@ -30,9 +36,15 @@ export class Slider {
       ? this.index !== 0 && this.index--
       : this.index !== this.rects.length - 1 && this.index++;
 
-    window.scroll({
-      behavior: "smooth",
-      top: this.rects[this.index],
+    gsap.to(this.target, {
+      value: this.rects[this.index],
+      duration: 1.3,
+      ease: EASING.transform,
+      onUpdate: () => {
+        window.scrollTo({
+          top: this.target.value,
+        });
+      },
     });
 
     this._scrollPage(this.rects[this.index]);
@@ -72,7 +84,7 @@ export class Slider {
   }
 
   _onReload() {
-    window.scroll({ top: 0 })
+    window.scroll({ top: 0 });
   }
 
   init() {

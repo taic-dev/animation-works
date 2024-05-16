@@ -18,7 +18,7 @@ export class Animation {
     this.tl = gsap.timeline();
     this.options = {
       root: null,
-      rootMargin: "-50% 0px",
+      rootMargin: "-30% 0px",
       threshold: 0,
     };
     this.loading = document.querySelector(".loading");
@@ -130,9 +130,9 @@ export class Animation {
           });
           this._loopText();
         })();
-      }, "+=3.2")
+      }, "+=3.35")
       .add(() => {
         (() => this.loading && this.loading.classList.add("is-hidden"))();
-      }, "+=1");
+      }, "+=1.7");
   }
 }
