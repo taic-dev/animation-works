@@ -3,6 +3,8 @@ import { SLIDER_CONTENTS } from "./constants";
 export class Slider {
   sliderItem: Element[] | null;
   sliderList: HTMLElement | null;
+  numerator: Element | null;
+  denominator: Element | null;
   next: Element | null;
   timeBar: HTMLElement | null;
   timeAnimation: HTMLElement | null;
@@ -15,6 +17,8 @@ export class Slider {
     this.sliderList = document.querySelector(".slider__list");
     this.sliderItem = [...document?.querySelectorAll(".slider__item")];
     this.next = document?.querySelector(".slider__next");
+    this.numerator = document?.querySelector(".numerator");
+    this.denominator = document?.querySelector(".denominator");
     this.timeBar = document.querySelector(".slider__time span");
     this.timeAnimation = document.querySelector(".slider__time--animation");
     this.translateX = 0;
@@ -23,8 +27,9 @@ export class Slider {
   }
 
   init() {
-    if (!this.sliderItem) return;
+    if (!this.sliderItem || !this.denominator) return;
 
+    this.denominator.innerHTML = String(this.sliderItem.length);
     this._autoSlider();
 
     this.next?.addEventListener("click", () => {
@@ -48,22 +53,23 @@ export class Slider {
     this.next.classList.add("slider__next--disabled");
     this._moveSlider();
 
-    
-
     if (this.index === this.sliderItem.length) {
       this.sliderList.addEventListener(
         "transitionend",
         () => {
+          if (!this.numerator) return;
           this._resetSlider();
           this.index = 1;
+          this.numerator.innerHTML = String(this.index);
         },
         { once: true }
       );
     }
 
     setTimeout(() => {
-      if (!this.next) return;
+      if (!this.next || !this.numerator) return;
       this.index++;
+      this.numerator.innerHTML = String(this.index);
       this.next.classList.remove("slider__next--disabled");
     }, 1000);
   }
