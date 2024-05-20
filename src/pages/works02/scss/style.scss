@@ -2,6 +2,7 @@
   --main-font: melete;
   --sub-font: nagoda;
   --translateX: 0;
+  --timeBar: 100%;
 }
 
 @font-face {
@@ -177,6 +178,10 @@ body {
   border-radius: 16px;
 }
 
+.slider__next--disabled {
+  pointer-events: none;
+}
+
 .slider__next img {
   width: 80px;
   height: 80px;
@@ -203,9 +208,10 @@ body {
 
 .slider__time span {
   display: block;
-  width: 45%;
+  width: var(--timeBar);
   height: 100%;
   background: #fff;
+  transition: 0.5s;
 }
 
 .mission__title {

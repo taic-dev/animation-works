@@ -19,7 +19,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const slider = new Slider();
   slider.init();
-  slider._cloneItem();
 });
 
 window.addEventListener("resize", () => {
