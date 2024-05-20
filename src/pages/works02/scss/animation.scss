@@ -1,0 +1,6 @@
+@use "./variables.scss" as *;
+
+@mixin sliderTimer() {
+  width: 100%;
+  animation: #{$duration * 8}s #{$duration}s #{$easing-transform} infinite sliderTimer;
+}

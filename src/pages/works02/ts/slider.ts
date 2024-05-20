@@ -5,32 +5,32 @@ export class Slider {
   sliderList: HTMLElement | null;
   next: Element | null;
   timeBar: HTMLElement | null;
+  timeAnimation: HTMLElement | null;
   translateX: number;
   index: number;
-  timeBarWidth: number;
+  time: number;
+  setTimer: any;
 
   constructor() {
     this.sliderList = document.querySelector(".slider__list");
     this.sliderItem = [...document?.querySelectorAll(".slider__item")];
     this.next = document?.querySelector(".slider__next");
-    this.timeBar = document.querySelector('.slider__time span');
+    this.timeBar = document.querySelector(".slider__time span");
+    this.timeAnimation = document.querySelector(".slider__time--animation");
     this.translateX = 0;
-    this.index = 0;
-    this.timeBarWidth = 100;
+    this.index = 1;
+    this.time = 1;
   }
 
   init() {
-    this._cloneItem();
-    this._scrollTimer();
-    this.next?.addEventListener("click", () => {
-      this._onClickButton();
-    });
-
-  }
-
-  _cloneItem() {
     if (!this.sliderItem) return;
 
+    this._autoSlider();
+
+    this.next?.addEventListener("click", () => {
+      this._resetTimer();
+    });
+
     this.sliderItem.forEach((v) => {
       const clone = v.cloneNode(true);
       this.sliderList?.appendChild(clone);
@@ -42,39 +42,68 @@ export class Slider {
     });
   }
 
-  _onClickButton() {
-    if (!this.sliderItem || !this.sliderList) return;
+  _main() {
+    if (!this.sliderItem || !this.sliderList || !this.next) return;
 
     this.next.classList.add("slider__next--disabled");
+    this._moveSlider();
 
-    this.sliderList.style.transition = "0.5s";
-    this.translateX -= SLIDER_CONTENTS.WIDTH + SLIDER_CONTENTS.GAP;
-    this.sliderList?.style.setProperty("--translateX", `${this.translateX}px`);
+    
 
-    if (this.index === this.sliderItem.length - 1) {
-
-      this.sliderList.addEventListener('transitionend', () => {
-        this.translateX = 0;
-        this.sliderList.style.transition = "0s";
-        this.sliderList.style.setProperty("--translateX", `${this.translateX}px`);
-        this.index = 0;
-      }, { once: true })
+    if (this.index === this.sliderItem.length) {
+      this.sliderList.addEventListener(
+        "transitionend",
+        () => {
+          this._resetSlider();
+          this.index = 1;
+        },
+        { once: true }
+      );
     }
 
     setTimeout(() => {
-      this.next.classList.remove("slider__next--disabled");
+      if (!this.next) return;
       this.index++;
-    }, 500);
+      this.next.classList.remove("slider__next--disabled");
+    }, 1000);
   }
 
+  _moveSlider() {
+    if (!this.sliderList) return;
 
-  _scrollTimer() {
-    setInterval(() => {
-      this.timeBarWidth -= 1
-      this.timeBar.style.setProperty('--timeBar', `${this.timeBarWidth}%`)
+    this.sliderList.style.transition = "1s";
+    this.translateX -= SLIDER_CONTENTS.WIDTH + SLIDER_CONTENTS.GAP;
+    this.sliderList.style.setProperty("--translateX", `${this.translateX}px`);
+  }
 
-      this.timeBarWidth === 0 && (this.timeBarWidth = 100)
-    }, 100)
-    this.timeBar
+  _resetSlider() {
+    if (!this.sliderList) return;
+
+    this.sliderList.style.transition = "0s";
+    this.translateX = 0;
+    this.sliderList.style.setProperty("--translateX", `${this.translateX}px`);
+  }
+
+  _autoSlider() {
+    this.setTimer = setInterval(() => {
+      if (this.time === 8) {
+        this._main();
+        this.time = 1;
+      } else {
+        this.time += 1;
+      }
+    }, 1000);
+  }
+
+  _resetTimer() {
+    this._main();
+    this.timeAnimation?.classList.remove("slider__time--animation");
+    clearInterval(this.setTimer);
+
+    setTimeout(() => {
+      this._autoSlider();
+      this.timeAnimation?.classList.add("slider__time--animation");
+      this.time = 1;
+    }, 1000);
   }
 }

@@ -1,3 +1,7 @@
+@use "./variables.scss" as *;
+@use "./animation.scss" as *;
+@use "./keyframes.scss" as *;
+
 :root {
   --main-font: melete;
   --sub-font: nagoda;
@@ -147,7 +151,7 @@ body {
 }
 
 .slider__list--smooth {
-  transition: 0.5s;
+  transition: #{$duration}s #{$easing-transform};
 }
 
 .slider__item {
@@ -203,16 +207,29 @@ body {
   width: 300px;
   height: 5px;
   border-radius: 5px;
+  border: solid 1px #333;
   background-color: #333;
 }
 
 .slider__time span {
+  position: relative;
   display: block;
   width: var(--timeBar);
   height: 100%;
   background: #fff;
-  transition: 0.5s;
 }
+
+.slider__time--animation {
+  @include sliderTimer();
+}
+
+// .slider__time span::before {
+//   position: absolute;
+//   top: 50%;
+//   right: -5px;
+//   transform: translateY(-50%);
+//   content: "🚀";
+// }
 
 .mission__title {
   text-align: center;

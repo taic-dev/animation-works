@@ -17,6 +17,7 @@ window.addEventListener("DOMContentLoaded", () => {
   particle.set();
   particle.render({ canvas, ctx });
 
+  // Slider
   const slider = new Slider();
   slider.init();
 });
