@@ -1,6 +1,15 @@
 @use "./variables.scss" as *;
 
-@mixin sliderTimer() {
-  width: 100%;
-  animation: #{$duration * 8}s #{$duration}s #{$easing-transform} infinite sliderTimer;
+@mixin scaleInText() {
+  transform: scale(0);
+  animation: #{$duration * 2}s #{$easing-transform} forwards scaleInText;
+}
+
+@mixin scaleOutText() {
+  transform: scale(8);
+  animation: #{$duration * 8}s #{$easing-transform} forwards scaleOutText;
+}
+
+@mixin sliderInText() {
+  
 }
