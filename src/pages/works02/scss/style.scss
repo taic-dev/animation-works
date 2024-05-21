@@ -155,7 +155,8 @@ body {
 }
 
 .slider__item {
-  // width: 28%;
+  position: relative;
+  cursor: pointer;
 }
 
 .slider__item-block {
@@ -171,10 +172,35 @@ body {
   border-radius: 16px;
 }
 
+.slider__item-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  opacity: 0;
+  height: 100%;
+  padding: 1rem;
+  border-radius: 16px;
+  color: #fff;
+  background-color: rgba($color: #333, $alpha: 0.7);
+  font-family: nagoda;
+  transition: #{$duration}s #{$easing-transform};
+}
+
+.slider__item-cover:hover {
+  opacity: 1;
+  transition: #{$duration}s #{$easing-transform};
+}
+
+.slider__item-cover h3 {
+  margin-bottom: 24px;
+  font-size: 2.5rem;
+}
+
 .slider__next {
   position: absolute;
   top: 50%;
-  left: 40px;
+  left: 50px;
   transform: translateY(-50%);
   cursor: pointer;
   border: solid 3px #333;
@@ -187,8 +213,8 @@ body {
 }
 
 .slider__next img {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
 }
 
 .slider__option {
@@ -220,16 +246,8 @@ body {
 }
 
 .slider__time--animation {
-  @include sliderTimer();
+  // transition: #{$duration}s linear;
 }
-
-// .slider__time span::before {
-//   position: absolute;
-//   top: 50%;
-//   right: -5px;
-//   transform: translateY(-50%);
-//   content: "🚀";
-// }
 
 .mission__title {
   text-align: center;

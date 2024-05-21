@@ -7,7 +7,6 @@ export class Slider {
   denominator: Element | null;
   next: Element | null;
   timeBar: HTMLElement | null;
-  timeAnimation: HTMLElement | null;
   translateX: number;
   index: number;
   time: number;
@@ -20,7 +19,6 @@ export class Slider {
     this.numerator = document?.querySelector(".numerator");
     this.denominator = document?.querySelector(".denominator");
     this.timeBar = document.querySelector(".slider__time span");
-    this.timeAnimation = document.querySelector(".slider__time--animation");
     this.translateX = 0;
     this.index = 1;
     this.time = 1;
@@ -30,11 +28,19 @@ export class Slider {
     if (!this.sliderItem || !this.denominator) return;
 
     this.denominator.innerHTML = String(this.sliderItem.length);
-    this._autoSlider();
+    this._startTimer();
 
     this.next?.addEventListener("click", () => {
       this._resetTimer();
     });
+
+    this.sliderList?.addEventListener('mouseover', () => {
+      this._stopTimer();
+    })
+
+    this.sliderList?.addEventListener('mouseout', () => {
+      this._startTimer();
+    })
 
     this.sliderItem.forEach((v) => {
       const clone = v.cloneNode(true);
@@ -90,9 +96,11 @@ export class Slider {
     this.sliderList.style.setProperty("--translateX", `${this.translateX}px`);
   }
 
-  _autoSlider() {
+  _startTimer() {
     this.setTimer = setInterval(() => {
-      if (this.time === 8) {
+      this.timeBar?.style.setProperty("--timeBar", `${100 - this.time * 10}%`);
+
+      if (this.time === 10) {
         this._main();
         this.time = 1;
       } else {
@@ -101,14 +109,16 @@ export class Slider {
     }, 1000);
   }
 
+  _stopTimer() {
+    clearInterval(this.setTimer);
+  }
+
   _resetTimer() {
     this._main();
-    this.timeAnimation?.classList.remove("slider__time--animation");
     clearInterval(this.setTimer);
 
     setTimeout(() => {
-      this._autoSlider();
-      this.timeAnimation?.classList.add("slider__time--animation");
+      this._startTimer();
       this.time = 1;
     }, 1000);
   }
