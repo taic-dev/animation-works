@@ -6,10 +6,27 @@
 }
 
 @mixin scaleOutText() {
-  transform: scale(8);
+  transform: scale(4);
   animation: #{$duration * 8}s #{$easing-transform} forwards scaleOutText;
 }
 
-@mixin sliderInText() {
-  
+@mixin sliderInText($delay) {
+  transform: translateY(100%);
+  animation: #{$duration}s #{$delay}s #{$easing-transform} forwards sliderInText;
+}
+
+@mixin slideInTextClip($delay) {
+  clip-path: inset(100% 0 0 0);
+  -webkit-clip-path: inset(100% 0 0 0);
+  animation: #{$duration}s #{$delay}s #{$easing-transform} forwards slideInTextClip;
+}
+
+@mixin growContent($delay) {
+  width: 0;
+  animation: #{$duration * 2}s #{$delay}s #{$easing-transform} forwards growContent;
+}
+
+@mixin rotate3d() {
+  transform: rotate3d(0, 1, 1, 0);
+  animation: #{$duration * 20}s linear infinite rotate3d;
 }

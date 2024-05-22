@@ -1,17 +1,8 @@
 import Lenis from "@studio-freight/lenis";
-import { Particle } from "./particle";
 import { Slider } from "./slider";
 import { Animation } from "./animation";
 
 window.addEventListener("DOMContentLoaded", () => {
-  // Lenis
-  const lenis = new Lenis();
-  const raf = (time: number) => {
-    lenis.raf(time * 0.8);
-    requestAnimationFrame(raf);
-  };
-  requestAnimationFrame(raf);
-
   // Animation
   const animation = new Animation();
   animation.init();
@@ -20,6 +11,16 @@ window.addEventListener("DOMContentLoaded", () => {
   // Slider
   const slider = new Slider();
   slider.init();
+
+  // Lenis
+  setTimeout(() => {
+    const lenis = new Lenis();
+    const raf = (time: number) => {
+      lenis.raf(time * 0.8);
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+  }, 8000);
 });
 
 window.addEventListener("resize", () => {
