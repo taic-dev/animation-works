@@ -2,6 +2,7 @@ import gsap from "gsap";
 import CustomEase from "gsap/CustomEase";
 import { EASING } from "./constants";
 gsap.registerPlugin(CustomEase);
+
 export class Slider {
   sections: Element[];
   pagination: Element[];

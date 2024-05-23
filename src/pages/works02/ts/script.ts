@@ -3,14 +3,14 @@ import { Slider } from "./slider";
 import { Animation } from "./animation";
 
 window.addEventListener("DOMContentLoaded", () => {
+  // Slider
+  const slider = new Slider();
+  slider.init();
+
   // Animation
   const animation = new Animation();
   animation.init();
   animation._loading();
-
-  // Slider
-  const slider = new Slider();
-  slider.init();
 
   // Lenis
   setTimeout(() => {

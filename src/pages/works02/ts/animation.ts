@@ -1,4 +1,5 @@
 import gsap from "gsap";
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import { Particle } from "./particle";
 import { splitSpanString } from "./utils";
 
@@ -9,13 +10,14 @@ export class Animation {
   particle: Particle;
   speed: number;
 
-  loadingTitle: HTMLElement | null
-  fvTitleBlock: HTMLElement[] | null
-  missionTitle: HTMLElement | null
-  missionText: HTMLElement | null
-  missionTextString: string | null
-  sectionTitle: HTMLElement[] | null
-  sliderList: HTMLElement | null
+  loadingTitle: HTMLElement | null;
+  fvTitleBlock: Element[] | null;
+  missionTitle: HTMLElement | null;
+  missionText: HTMLElement | null;
+  missionTextString?: string | null;
+  sectionTitle: Element[] | null;
+  sliderList: HTMLElement | null;
+  sliderItemImg: Element[] | null;
 
   constructor() {
     this.options = {
@@ -27,13 +29,15 @@ export class Animation {
     this.timeLine = gsap.timeline();
     this.speed = 1;
 
-    this.loadingTitle = document.querySelector('.loading__title');
-    this.fvTitleBlock = [...document.querySelectorAll('.fv__title-block')];
-    this.missionTitle = document.querySelector('.mission__title');
-    this.missionText = document.querySelector('.mission__text')
-    this.sectionTitle = [...document.querySelectorAll('.section__title')];
-    this.sliderList = document.querySelector('.slider__list');
-    
+    this.loadingTitle = document.querySelector(".loading__title");
+    this.fvTitleBlock = [...document.querySelectorAll(".fv__title-block")];
+    this.missionTitle = document.querySelector(".mission__title");
+    this.missionText = document.querySelector(".mission__text");
+    this.sectionTitle = [...document.querySelectorAll(".section__title")];
+    this.sliderList = document.querySelector(".slider__list");
+    this.sliderItemImg = [
+      ...document.querySelectorAll(".slider__item-block img"),
+    ];
   }
 
   init() {
@@ -41,19 +45,21 @@ export class Animation {
     this.particle.set();
     this.particle.render({ canvas, ctx }, this.speed);
 
-    
+    if(!this.missionTitle || !this.missionText || !this.sliderList) return 
     this._setAnimation();
     this.observer = this._setObserver(this._startAnimation, this.options);
 
-    this.fvTitleBlock.forEach((v) => {
-      this.observer?.observe(v)
-    })
-    this.sectionTitle.forEach((v) => {
-      this.observer?.observe(v)
-    })
-    this.observer?.observe(this.missionTitle)
-    this.observer?.observe(this.missionText)
-    this.observer?.observe(this.sliderList)
+    this.fvTitleBlock?.forEach((v) => {
+      this.observer?.observe(v);
+    });
+    this.sectionTitle?.forEach((v) => {
+      this.observer?.observe(v);
+    });
+    this.observer?.observe(this.missionTitle);
+    this.observer?.observe(this.missionText);
+    this.observer?.observe(this.sliderList);
+
+    this._setScroll();
   }
 
   _setObserver(
@@ -64,8 +70,32 @@ export class Animation {
   }
 
   _setAnimation() {
-    this.missionTextString = splitSpanString(this.missionText, ' ')
-    document.querySelector('.mission__text').innerHTML = `<p>${this.missionTextString}</p>`
+    if (!this.missionText) return;
+    this.missionTextString = splitSpanString(this.missionText, " ");
+    this.missionText.innerHTML = `<p>${this.missionTextString}</p>`;
+  }
+
+  _setScroll() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    this.sliderItemImg?.forEach((v) => {
+      gsap.fromTo(
+        v,
+        {
+          yPercent: 0,
+        },
+        {
+          yPercent: -10,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".slider",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
+    });
   }
 
   _startAnimation(entries: IntersectionObserverEntry[]) {
@@ -77,14 +107,13 @@ export class Animation {
   }
 
   _loading() {
-    this.loadingTitle.classList.add('is-active');
+    this.loadingTitle?.classList.add("is-active");
 
     this.timeLine
       .add(() => {
         this.speed = 100;
       })
       .add(() => {
-
         this.speed = 1;
       });
   }
