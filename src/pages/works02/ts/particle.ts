@@ -61,14 +61,14 @@ export class Particle {
     }
   }
 
-  render({ canvas, ctx }: CanvasContextType) {
+  render({ canvas, ctx }: CanvasContextType, speed: number) {
     if (!canvas || !this.ctx) return;
 
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < this.particles.length; i++) {
-      this.particles[i].update(ctx, this.particleInfo[i]);
+      this.particles[i].update(ctx, this.particleInfo[i], speed);
     }
-    requestAnimationFrame(() => this.render({ canvas, ctx }));
+    requestAnimationFrame(() => this.render({ canvas, ctx }, speed));
   }
 }
 
@@ -80,6 +80,7 @@ export class CreateParticle {
   directionX: number;
   directionY: number;
   color: string;
+  alpha: number;
 
   constructor(arg: ParticleType) {
     this.canvas = document.querySelector("canvas");
@@ -89,15 +90,15 @@ export class CreateParticle {
     this.radius = arg.radius;
     this.directionX = arg.directionX;
     this.directionY = arg.directionY;
-    this.color = "#333";
+    this.color = "rgb(51,51,51)";
+    this.alpha = 0.5;
   }
 
   render(ctx: ctxType, { x, y, radius }: ParticleType) {
     if (!ctx) return;
     ctx.fillStyle = this.color;
-    ctx.globalAlpha = 0.5;
-    ctx.strokeStyle = "#333";
-    ctx.lineWidth = 1;
+    ctx.globalAlpha = this.alpha;
+    ctx.strokeStyle = this.color;
     ctx.stroke();
     ctx.beginPath();
     ctx.arc(x, y, radius, 0, Math.PI * 2);
@@ -106,10 +107,14 @@ export class CreateParticle {
     // ctx.fillText(String.fromCodePoint(0x1f44d), 100, 100, 100);
   }
 
-  update(ctx: ctxType, { x, y, radius, directionX, directionY }: ParticleType) {
+  update(
+    ctx: ctxType,
+    { x, y, radius, directionX, directionY }: ParticleType,
+    speed: number
+  ) {
     if (!this.canvas) return;
 
-    this.y -= this.directionY;
+    this.y -= this.directionY * speed;
     if (this.y < 0 - this.radius) this.y = WINDOW.H + this.radius;
 
     this.render(ctx, { x, y: this.y, radius, directionX, directionY });

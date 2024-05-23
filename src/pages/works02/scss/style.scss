@@ -19,9 +19,10 @@
   src: url("/public/fonts/Nagoda.ttf") format("truetype");
 }
 
-body {
+html,body {
   font-family: melete;
   color: #333;
+  overflow: hidden;
 }
 
 .canvas-wrapper {
@@ -30,6 +31,23 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+}
+
+.loading__title {
+  font-size: 4vw;
+  text-align: center;
+}
+
+.loading__title.is-active {
+  @include scaleOutText();
 }
 
 .header {
@@ -88,6 +106,7 @@ body {
 
 .fv__title-block {
   position: relative;
+  overflow: hidden;
 }
 
 .fv__title-block:not(:last-child) {
@@ -97,6 +116,11 @@ body {
 .fv__title-block span {
   display: block;
   font-size: 5vw;
+  transform: translateY(100%);
+}
+
+.fv__title-block.is-active span {
+  @include sliderInText(7.5);
 }
 
 .fv__title-block img {
@@ -118,12 +142,28 @@ body {
 
 .section__title {
   margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: solid 1.5px #333;
+  overflow-y: hidden;
 }
 
 .section__title h2 {
   font-size: 3vw;
+  clip-path: inset(100% 0 0 0);
+  -webkit-clip-path: inset(100% 0 0 0);
+}
+
+.section__title.is-active h2 {
+  @include slideInTextClip(0);
+}
+
+.section__title span {
+  display: block;
+  width: 0;
+  padding-top: 10px;
+  border-bottom: solid 1.5px #333;
+}
+
+.section__title.is-active span {
+  @include growContent(0.5)
 }
 
 .slider {
@@ -154,27 +194,62 @@ body {
   transition: #{$duration}s #{$easing-transform};
 }
 
+@for $i from 0 through 10 {
+  .slider__list.is-active li:nth-child(#{$i}) {
+    @include slideInTextClip(0.2 * $i);
+  }
+}
+
 .slider__item {
-  // width: 28%;
+  position: relative;
+  cursor: pointer;
+  clip-path: inset(100% 0 0 0);
+  -webkit-clip-path: inset(100% 0 0 0);
 }
 
 .slider__item-block {
+  overflow: hidden;
   min-width: 300px;
   min-height: 500px;
   height: 100%;
+  border-radius: 16px;
 }
 
 .slider__item-block img {
   width: 100%;
-  height: 100%;
+  height: 110%;
   object-fit: cover;
+}
+
+.slider__item-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  opacity: 0;
+  height: 100%;
+  padding: 1rem;
   border-radius: 16px;
+  color: #fff;
+  background-color: rgba($color: #333, $alpha: 0.7);
+  font-family: nagoda;
+  transition: #{$duration}s #{$easing-transform};
+}
+
+.slider__item-cover:hover {
+  opacity: 1;
+  transition: #{$duration}s #{$easing-transform};
+}
+
+.slider__item-cover h3 {
+  margin-bottom: 24px;
+  font-size: 2.5rem;
 }
 
 .slider__next {
   position: absolute;
   top: 50%;
-  left: 40px;
+  left: 50px;
   transform: translateY(-50%);
   cursor: pointer;
   border: solid 3px #333;
@@ -187,8 +262,8 @@ body {
 }
 
 .slider__next img {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
 }
 
 .slider__option {
@@ -220,24 +295,22 @@ body {
 }
 
 .slider__time--animation {
-  @include sliderTimer();
+  // transition: #{$duration}s linear;
 }
-
-// .slider__time span::before {
-//   position: absolute;
-//   top: 50%;
-//   right: -5px;
-//   transform: translateY(-50%);
-//   content: "🚀";
-// }
 
 .mission__title {
   text-align: center;
   margin-bottom: 5vw;
+  overflow: hidden;
 }
 
 .mission__title h2 {
   font-size: 10vw;
+  transform: translateY(100%);
+}
+
+.mission__title.is-active h2 {
+  @include sliderInText(0);
 }
 
 .mission__text {
@@ -247,6 +320,19 @@ body {
 .mission__text p {
   font-family: nagoda;
   line-height: 4;
+}
+
+.mission__text span {
+  position: relative;
+  font-family: nagoda;
+  clip-path: inset(100% 0 0 0);
+  -webkit-clip-path: inset(100% 0 0 0);
+}
+
+@for $i from 0 through 500 {
+  .mission__text.is-active span:nth-child(#{$i}) {
+    @include slideInTextClip(0.01 * $i);
+  }
 }
 
 .technology__wrapper {
