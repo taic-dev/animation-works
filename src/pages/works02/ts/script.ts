@@ -25,6 +25,8 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 window.addEventListener("resize", () => {
-  const particle = new Particle()
-  particle.resize();
+  const particle = new Particle();
+  setTimeout(() => {
+    particle.resize();
+  }, 500);
 });

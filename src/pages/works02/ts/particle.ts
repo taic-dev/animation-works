@@ -20,7 +20,7 @@ export class Particle {
     this.particles = [];
     this.particleInfo = [];
     this.timeLine = gsap.timeline();
-    this.alpha = 0
+    this.alpha = 0;
   }
 
   init(): CanvasContextType {
@@ -28,19 +28,19 @@ export class Particle {
 
     if (!this.canvas) return { canvas: this.canvas, ctx: this.ctx };
 
-    this.canvas.width = WINDOW.W * 2;
-    this.canvas.height = WINDOW.H * 2;
+    this.canvas.width = window.innerWidth * 2;
+    this.canvas.height = window.innerHeight * 2;
 
-    this.canvas.style.width = WINDOW.W + "px";
-    this.canvas.style.height = WINDOW.H + "px";
+    this.canvas.style.width = window.innerWidth + "px";
+    this.canvas.style.height = window.innerHeight + "px";
 
     return { canvas: this.canvas, ctx: this.ctx };
   }
 
   set() {
     for (let i = 0; i < PARTICLE_NUMBER; i++) {
-      const x = Math.floor(Math.random() * WINDOW.W) * 2;
-      const y = Math.random() * WINDOW.H * 2;
+      const x = Math.floor(Math.random() * window.innerWidth) * 2;
+      const y = Math.random() * window.innerHeight * 2;
       const radius = Math.floor(Math.random() * 8) * 2;
       const directionX = (Math.random() * 2 - 1) * 2;
       const directionY = Math.random() * 0.5 * 2;
@@ -80,6 +80,7 @@ export class Particle {
     const { canvas, ctx } = this.init();
     this.set();
     this.render({ canvas, ctx });
+    this.alpha = 0.5;
   }
 }
 
@@ -111,11 +112,15 @@ export class CreateParticle {
     ctx.fill();
   }
 
-  update(ctx: ctxType, { x, radius, directionX, directionY }: ParticleType, alpha: number) {
+  update(
+    ctx: ctxType,
+    { x, radius, directionX, directionY }: ParticleType,
+    alpha: number
+  ) {
     if (!this.canvas) return;
 
     this.y -= this.directionY;
-    if (this.y < 0 - this.radius) this.y = WINDOW.H * 2 + this.radius;
+    if (this.y < 0 - this.radius) this.y = window.innerHeight * 2 + this.radius;
 
     this.render(ctx, {
       x,
@@ -123,7 +128,7 @@ export class CreateParticle {
       radius,
       directionX,
       directionY,
-      alpha
+      alpha,
     });
   }
 }
