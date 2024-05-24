@@ -14,6 +14,9 @@ window.addEventListener("load", () => {
   const sectionTitle = document.querySelectorAll(".section__title");
   const sliderList = document.querySelector(".slider__list");
   const sliderItemImg = document.querySelectorAll(".slider__item-block img");
+  const technologyCircle = document.querySelectorAll(".technology__circle");
+  const technologyImage = document.querySelectorAll(".technology__image");
+  const technologyTitle = document.querySelectorAll(".technology__title");
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -30,6 +33,9 @@ window.addEventListener("load", () => {
     const observer = new IntersectionObserver(callback);
     fvTitleBlock.forEach((v) => observer.observe(v));
     sectionTitle.forEach((v) => observer.observe(v));
+    technologyImage.forEach((v) => observer.observe(v));
+    technologyCircle.forEach((v) => observer.observe(v));
+    technologyTitle.forEach((v) => observer.observe(v));
     observer.observe(missionTitle);
     observer.observe(missionText);
     observer.observe(missionCircle);

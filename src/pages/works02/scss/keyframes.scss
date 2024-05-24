@@ -49,6 +49,17 @@
   }
 }
 
+@keyframes slideInRotation {
+  0% {
+    transform: rotate(60deg) translateX(100px) rotateX(0deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(60deg) translateX(70px) rotateX(360deg);
+    opacity: 1;
+  }
+}
+
 @keyframes rotate3d {
   0% {
     transform: rotate3d(1, 1, 1, 0);

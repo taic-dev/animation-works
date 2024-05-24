@@ -26,6 +26,12 @@
   animation: #{$duration * 2}s #{$delay}s #{$easing-transform} forwards growContent;
 }
 
+@mixin slideInRotation() {
+  transform: rotate(60deg) translateX(70px);
+  opacity: 0;
+  animation: #{$duration}s #{$easing-transform} forwards slideInRotation;
+}
+
 @mixin rotate3d() {
   transform: rotate3d(0, 1, 1, 0);
   animation: #{$duration * 20}s linear infinite rotate3d;
