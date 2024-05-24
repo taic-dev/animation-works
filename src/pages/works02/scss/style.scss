@@ -298,6 +298,10 @@ html,body {
   // transition: #{$duration}s linear;
 }
 
+.mission {
+  position: relative;
+}
+
 .mission__title {
   text-align: center;
   margin-bottom: 5vw;
@@ -333,6 +337,20 @@ html,body {
   .mission__text.is-active span:nth-child(#{$i}) {
     @include slideInTextClip(0.01 * $i);
   }
+}
+
+.mission__circle {
+  position: absolute;
+  right: -250px;
+  bottom: -400px;
+}
+
+.circle__blur {
+  width: 40vw;
+  height: 40vw;
+  background-color: #5F3AFF;
+  border-radius: 50%;
+  filter: blur(9vw);
 }
 
 .technology__wrapper {
