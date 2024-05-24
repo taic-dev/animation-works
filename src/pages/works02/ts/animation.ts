@@ -8,8 +8,6 @@ export class Animation {
   options: IntersectionObserverInit | undefined;
   timeLine: gsap.core.Timeline;
   particle: Particle;
-  speed: number;
-
   loadingTitle: HTMLElement | null;
   fvTitleBlock: Element[] | null;
   missionTitle: HTMLElement | null;
@@ -18,6 +16,7 @@ export class Animation {
   sectionTitle: Element[] | null;
   sliderList: HTMLElement | null;
   sliderItemImg: Element[] | null;
+  speed: number | undefined;
 
   constructor() {
     this.options = {
@@ -27,8 +26,6 @@ export class Animation {
     };
     this.particle = new Particle();
     this.timeLine = gsap.timeline();
-    this.speed = 1;
-
     this.loadingTitle = document.querySelector(".loading__title");
     this.fvTitleBlock = [...document.querySelectorAll(".fv__title-block")];
     this.missionTitle = document.querySelector(".mission__title");
@@ -43,9 +40,9 @@ export class Animation {
   init() {
     const { canvas, ctx } = this.particle.init();
     this.particle.set();
-    this.particle.render({ canvas, ctx }, this.speed);
+    this.particle.render({ canvas, ctx });
 
-    if(!this.missionTitle || !this.missionText || !this.sliderList) return 
+    if (!this.missionTitle || !this.missionText || !this.sliderList) return;
     this._setAnimation();
     this.observer = this._setObserver(this._startAnimation, this.options);
 
@@ -59,6 +56,7 @@ export class Animation {
     this.observer?.observe(this.missionText);
     this.observer?.observe(this.sliderList);
 
+    this._loading();
     this._setScroll();
   }
 
@@ -109,12 +107,11 @@ export class Animation {
   _loading() {
     this.loadingTitle?.classList.add("is-active");
 
-    this.timeLine
-      .add(() => {
-        this.speed = 100;
-      })
-      .add(() => {
-        this.speed = 1;
-      });
+    gsap.to(this.particle, {
+      alpha: 0.5,
+      duration: 1,
+      delay: 5,
+      ease: 'power2.inOut'
+    })
   }
 }

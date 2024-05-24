@@ -9,5 +9,6 @@ export type ParticleType = {
   radius: number;
   directionX: number;
   directionY: number;
+  alpha: number;
   color?: string;
 };

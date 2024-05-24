@@ -7,7 +7,7 @@
 
 @mixin scaleOutText() {
   transform: scale(4);
-  animation: #{$duration * 8}s #{$easing-transform} forwards scaleOutText;
+  animation: #{$duration * 5}s #{$easing-transform} forwards scaleOutText;
 }
 
 @mixin sliderInText($delay) {
