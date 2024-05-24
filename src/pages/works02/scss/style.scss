@@ -25,6 +25,16 @@ html,body {
   overflow: hidden;
 }
 
+.circle--blur {
+  width: 40vw;
+  height: 40vw;
+  background-color: #5F3AFF;
+  border-radius: 50%;
+  filter: blur(9vw);
+  opacity: 0;
+  transition: #{$duration}s;
+}
+
 .canvas-wrapper {
   position: fixed;
   top: 0;
@@ -48,6 +58,10 @@ html,body {
 
 .loading__title.is-active {
   @include scaleOutText();
+}
+
+.loading__title.is-hidden {
+  display: none;
 }
 
 .header {
@@ -119,8 +133,12 @@ html,body {
   transform: translateY(100%);
 }
 
+.fv__title-block.is-active.is-loading span {
+  @include sliderInText(5);
+}
+
 .fv__title-block.is-active span {
-  @include sliderInText(4.5);
+  @include sliderInText(1);
 }
 
 .fv__title-block img {
@@ -134,6 +152,22 @@ html,body {
   opacity: 0;
   pointer-events: none;
   will-change: transform opacity;
+}
+
+.fv__circle {
+  position: absolute;
+  left: -25vw;
+  bottom: -20vw;
+}
+
+.fv__circle.is-active {
+  opacity: 1;
+  transition: #{$duration}s 2s;
+}
+
+.fv__circle.is-active.is-loading {
+  opacity: 1;
+  transition: #{$duration}s 6s;
 }
 
 .section {
@@ -341,16 +375,13 @@ html,body {
 
 .mission__circle {
   position: absolute;
-  right: -250px;
-  bottom: -400px;
+  right: -20vw;
+  bottom: -25vw;
 }
 
-.circle__blur {
-  width: 40vw;
-  height: 40vw;
-  background-color: #5F3AFF;
-  border-radius: 50%;
-  filter: blur(9vw);
+.mission__circle.is-active {
+  opacity: 1;
+  transition: #{$duration}s 0.5s;
 }
 
 .technology__wrapper {
