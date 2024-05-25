@@ -9,3 +9,5 @@ export const SLIDER_CONTENTS = {
   WIDTH: 300,
   GAP: 16
 }
+
+export const IS_LOADING = !(sessionStorage.getItem("isLoading"))

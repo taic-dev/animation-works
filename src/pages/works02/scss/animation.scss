@@ -7,7 +7,7 @@
 
 @mixin scaleOutText() {
   transform: scale(4);
-  animation: #{$duration * 8}s #{$easing-transform} forwards scaleOutText;
+  animation: #{$duration * 5}s #{$easing-transform} forwards scaleOutText;
 }
 
 @mixin sliderInText($delay) {
@@ -24,6 +24,12 @@
 @mixin growContent($delay) {
   width: 0;
   animation: #{$duration * 2}s #{$delay}s #{$easing-transform} forwards growContent;
+}
+
+@mixin slideInRotation() {
+  transform: rotate(60deg) translateX(70px);
+  opacity: 0;
+  animation: #{$duration}s #{$easing-transform} forwards slideInRotation;
 }
 
 @mixin rotate3d() {
