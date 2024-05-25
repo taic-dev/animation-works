@@ -17,6 +17,8 @@ window.addEventListener("load", () => {
   const technologyCircle = document.querySelectorAll(".technology__circle");
   const technologyImage = document.querySelectorAll(".technology__image");
   const technologyTitle = document.querySelectorAll(".technology__title");
+  const technologyText = document.querySelectorAll(".technology__text");
+  const contactText = document.querySelector(".contact__text");
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -29,17 +31,22 @@ window.addEventListener("load", () => {
       });
     };
 
-    if(!missionTitle || !missionText || !missionCircle || !sliderList) return
+    if(!missionTitle || !missionText || !missionCircle || !sliderList || !contactText) return
     const observer = new IntersectionObserver(callback);
     fvTitleBlock.forEach((v) => observer.observe(v));
     sectionTitle.forEach((v) => observer.observe(v));
     technologyImage.forEach((v) => observer.observe(v));
     technologyCircle.forEach((v) => observer.observe(v));
     technologyTitle.forEach((v) => observer.observe(v));
+    technologyText.forEach((v) => {
+      observer.observe(v)
+      spanWrappedText(v)
+    })
     observer.observe(missionTitle);
     observer.observe(missionText);
     observer.observe(missionCircle);
     observer.observe(sliderList);
+    observer.observe(contactText);
   }
   addClassIsActive();
 
@@ -84,12 +91,13 @@ window.addEventListener("load", () => {
   }
   particle();
 
-  function missionTextAnimation(element: Element | null) {
+  function spanWrappedText(element: Element | null) {
     if(!element) return
-    const missionTextString = splitSpanString(element, " ");
-    element.innerHTML = `<p>${missionTextString}</p>`;
+    const processingString = splitSpanString(element, " ");
+    element.innerHTML = `<p>${processingString}</p>`;
   }
-  missionTextAnimation(missionText)
+  spanWrappedText(missionText)
+  spanWrappedText(contactText)
 
   function scrollParallax(element: Element, className: string) {
     gsap.fromTo(
@@ -108,4 +116,34 @@ window.addEventListener("load", () => {
     );
   }
   sliderItemImg.forEach((v) => scrollParallax(v, "slider"));
+
+  function MouseStalker() {
+    const contact: HTMLElement | null = document.querySelector(".contact");
+    const contactCircle: HTMLElement | null = document.querySelector(".contact__circle");
+
+    if(!contact || !contactCircle) return
+
+    contact.addEventListener('mouseover',(e: MouseEvent) => {
+      e.stopPropagation();
+      contactCircle?.classList.add('is-active');
+    });
+    contact.addEventListener('mouseout',(e: MouseEvent) => {
+      e.stopPropagation();
+      contactCircle?.classList.remove('is-active');
+    })
+
+    contact.addEventListener('mousemove',(e: MouseEvent) => {
+      e.stopPropagation();
+
+      contactCircle.style.setProperty(
+        "--stalkerX",
+        `${e.offsetX}px`
+      );
+      contactCircle.style.setProperty(
+        "--stalkerY",
+        `${e.offsetY}px`
+      );
+    })
+  }
+  MouseStalker()
 });

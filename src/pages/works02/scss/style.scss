@@ -7,6 +7,8 @@
   --sub-font: nagoda;
   --translateX: 0;
   --timeBar: 100%;
+  --stalkerX: 0;
+  --stalkerY: 0;
 }
 
 @font-face {
@@ -426,8 +428,14 @@ html,body {
   @include slideInTextClip(0);
 }
 
-.technology__box p {
+.technology__text p {
   line-height: 3;
+}
+
+@for $i from 0 through 100 {
+  .technology__text.is-active span:nth-child(#{$i}) {
+    @include slideInTextClip(0.01 * $i);
+  }
 }
 
 .technology__content {
@@ -486,6 +494,7 @@ html,body {
 }
 
 .contact {
+  position: relative;
   margin-bottom: 5rem;
   padding-top: 8rem;
   padding-bottom: 8rem;
@@ -494,18 +503,59 @@ html,body {
   cursor: pointer;
 }
 
+.contact__title {
+  pointer-events: none;
+}
+
 .contact__title h2 {
   font-size: 4vw;
   margin-bottom: 80px;
+}
+
+.contact__wrapper {
+  pointer-events: none;
 }
 
 .contact__text {
   width: 50%;
 }
 
+@for $i from 0 through 50 {
+  .contact__text.is-active span:nth-child(#{$i}) {
+    @include slideInTextClip(0.01 * $i);
+  }
+}
+
 .contact__text p {
   font-family: nagoda;
   line-height: 3;
+}
+
+.contact__circle {
+  position: absolute;
+  top: -150px;
+  left: -150px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20vw;
+  height: 20vw;
+  filter: none;
+
+  pointer-events: none;
+  transform: translate(var(--stalkerX),var(--stalkerY));
+  transition: all #{$duration}s;
+  will-change: transform opacity;
+}
+
+.contact__circle.is-active {
+  opacity: 1;
+}
+
+.contact__circle img {
+  width: 100px;
 }
 
 .footer {
