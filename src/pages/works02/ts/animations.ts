@@ -19,6 +19,7 @@ window.addEventListener("load", () => {
   const technologyTitle = document.querySelectorAll(".technology__title");
   const technologyText = document.querySelectorAll(".technology__text");
   const contactText = document.querySelector(".contact__text");
+  const footerText = document.querySelectorAll(".footer__title");
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -42,6 +43,7 @@ window.addEventListener("load", () => {
       observer.observe(v)
       spanWrappedText(v)
     })
+    footerText.forEach((v) => observer.observe(v));
     observer.observe(missionTitle);
     observer.observe(missionText);
     observer.observe(missionCircle);
