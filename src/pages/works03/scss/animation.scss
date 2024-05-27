@@ -1,0 +1,8 @@
+@use "./variables.scss" as *;
+@use "./keyframes.scss" as *;
+
+@mixin slideOutTextClip($delay) {
+  clip-path: inset(0);
+  -webkit-clip-path: inset(0);
+  animation: #{$duration * 1.5}s #{$delay}s #{$easing-transform} forwards slideOutTextClip;
+}

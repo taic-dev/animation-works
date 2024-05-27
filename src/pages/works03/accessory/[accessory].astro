@@ -1,0 +1,18 @@
+---
+import Layout from "../components/Layout.astro";
+
+export function getStaticPaths() {
+  return [
+    { params: { accessory: 'ring' } },
+  ];
+}
+
+const { accessory } = Astro.params
+---
+
+<Layout>
+  <main id="swup">
+    {accessory}ページ
+    <a href="/works03">戻る</a>
+  </main>
+</Layout>
