@@ -1,6 +1,7 @@
 ---
 import "../../styles/sass/styles.scss"
 import "./scss/style.scss"
+import { ACCESSORY_DATA } from "./ts/constants"
 ---
 
 <!doctype html>
@@ -27,54 +28,18 @@ import "./scss/style.scss"
           <span></span>
         </div>
         <ul class="list">
-          <li class="item">
-            <div class="item-image"><img src="/images/works03/accessory1.jpg" alt=""></div>
-            <div class="item-desc">
-              <div class="item-title">
-                <h3></h3>
-              </div>
-            </div>
-          </li>
-          <li class="item">
-            <div class="item-image"><img src="/images/works03/accessory2.jpg" alt=""></div>
-            <div class="item-desc">
-              <div class="item-title">
-                <h3></h3>
-              </div>
-            </div>
-          </li>
-          <li class="item">
-            <div class="item-image"><img src="/images/works03/accessory3.jpg" alt=""></div>
-            <div class="item-desc">
-              <div class="item-title">
-                <h3></h3>
-              </div>
-            </div>
-          </li>
-          <li class="item">
-            <div class="item-image"><img src="/images/works03/accessory4.jpg" alt=""></div>
-            <div class="item-desc">
-              <div class="item-title">
-                <h3></h3>
-              </div>
-            </div>
-          </li>
-          <li class="item">
-            <div class="item-image"><img src="/images/works03/accessory5.jpg" alt=""></div>
-            <div class="item-desc">
-              <div class="item-title">
-                <h3></h3>
-              </div>
-            </div>
-          </li>
-          <li class="item">
-            <div class="item-image"><img src="/images/works03/accessory6.jpg" alt=""></div>
-            <div class="item-desc">
-              <div class="item-title">
-                <h3></h3>
-              </div>
-            </div>
-          </li>
+          { ACCESSORY_DATA.map((data) => (
+            <li class="item">
+              <a href="#">
+                <div class="item-image"><img src={data.image} alt=""></div>
+                <div class="item-desc">
+                  <div class="item-title">
+                    <h3></h3>
+                  </div>
+                </div>
+              </a>
+            </li>
+          )) }
         </ul>
       </div>
     </main>
