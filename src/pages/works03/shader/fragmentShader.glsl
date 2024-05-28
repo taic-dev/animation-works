@@ -1,3 +1,22 @@
+uniform sampler2D uTexture;
+uniform float uImageAspect;
+uniform float uPlaneAspect;
+
+varying vec2 vUv;
+
+
 void main() {
-  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+  vec2 ratio = vec2(
+    min(uPlaneAspect / uImageAspect, 1.0),
+    min((1.0 / uPlaneAspect) / (1.0 / uImageAspect), 1.0)
+  );
+
+  vec2 fixedUv = vec2(
+    (vUv.x - 0.5) * ratio.x + 0.5,
+    (vUv.y - 0.5) * ratio.y + 0.5
+  );
+
+  vec3 color = texture2D(uTexture, fixedUv).rgb;
+  gl_FragColor = vec4(color, 1.0);
+  
 }
