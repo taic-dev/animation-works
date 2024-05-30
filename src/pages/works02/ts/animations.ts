@@ -3,6 +3,7 @@ import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import { splitSpanString } from "./utils";
 import { Particle } from "./particle";
 import { IS_LOADING } from "./constants";
+import { EASING } from "./constants";
 
 window.addEventListener("load", () => {
   const loadingTitle = document.querySelector(".loading__title");
@@ -32,7 +33,14 @@ window.addEventListener("load", () => {
       });
     };
 
-    if(!missionTitle || !missionText || !missionCircle || !sliderList || !contactText) return
+    if (
+      !missionTitle ||
+      !missionText ||
+      !missionCircle ||
+      !sliderList ||
+      !contactText
+    )
+      return;
     const observer = new IntersectionObserver(callback);
     fvTitleBlock.forEach((v) => observer.observe(v));
     sectionTitle.forEach((v) => observer.observe(v));
@@ -40,9 +48,9 @@ window.addEventListener("load", () => {
     technologyCircle.forEach((v) => observer.observe(v));
     technologyTitle.forEach((v) => observer.observe(v));
     technologyText.forEach((v) => {
-      observer.observe(v)
-      spanWrappedText(v)
-    })
+      observer.observe(v);
+      spanWrappedText(v);
+    });
     footerText.forEach((v) => observer.observe(v));
     observer.observe(missionTitle);
     observer.observe(missionText);
@@ -94,12 +102,12 @@ window.addEventListener("load", () => {
   particle();
 
   function spanWrappedText(element: Element | null) {
-    if(!element) return
+    if (!element) return;
     const processingString = splitSpanString(element, " ");
     element.innerHTML = `<p>${processingString}</p>`;
   }
-  spanWrappedText(missionText)
-  spanWrappedText(contactText)
+  spanWrappedText(missionText);
+  spanWrappedText(contactText);
 
   function scrollParallax(element: Element, className: string) {
     gsap.fromTo(
@@ -121,31 +129,30 @@ window.addEventListener("load", () => {
 
   function MouseStalker() {
     const contact: HTMLElement | null = document.querySelector(".contact");
-    const contactCircle: HTMLElement | null = document.querySelector(".contact__circle");
+    const contactCircle: HTMLElement | null =
+      document.querySelector(".contact__circle");
 
-    if(!contact || !contactCircle) return
+    if (!contact || !contactCircle) return;
 
-    contact.addEventListener('mouseover',(e: MouseEvent) => {
+    contact.addEventListener("mouseover", (e: MouseEvent) => {
       e.stopPropagation();
-      contactCircle?.classList.add('is-active');
+      contactCircle?.classList.add("is-active");
     });
-    contact.addEventListener('mouseout',(e: MouseEvent) => {
+    contact.addEventListener("mouseout", (e: MouseEvent) => {
       e.stopPropagation();
-      contactCircle?.classList.remove('is-active');
-    })
+      contactCircle?.classList.remove("is-active");
+    });
 
-    contact.addEventListener('mousemove',(e: MouseEvent) => {
+    contact.addEventListener("mousemove", (e: MouseEvent) => {
       e.stopPropagation();
 
-      contactCircle.style.setProperty(
-        "--stalkerX",
-        `${e.offsetX}px`
-      );
-      contactCircle.style.setProperty(
-        "--stalkerY",
-        `${e.offsetY}px`
-      );
-    })
+      gsap.to(contactCircle, {
+        duration: 1.2,
+        ease: "power2.out",
+        x: e.offsetX,
+        y: e.offsetY,
+      });
+    });
   }
-  MouseStalker()
+  MouseStalker();
 });
