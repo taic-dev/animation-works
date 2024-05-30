@@ -1,6 +1,7 @@
 uniform sampler2D uTexture;
 uniform float uImageAspect;
 uniform float uPlaneAspect;
+uniform float uOffset;
 
 varying vec2 vUv;
 
@@ -16,7 +17,11 @@ void main() {
     (vUv.y - 0.5) * ratio.y + 0.5
   );
 
-  vec3 color = texture2D(uTexture, fixedUv).rgb;
-  gl_FragColor = vec4(color, 1.0);
+  float n = 0.001;
+
+  float colorR = texture2D(uTexture, fixedUv).r + abs(uOffset) * n;
+  float colorG = texture2D(uTexture, fixedUv).g + abs(uOffset) * n;
+  float colorB = texture2D(uTexture, fixedUv).b + abs(uOffset) * n;
+  gl_FragColor = vec4(vec3(colorR, colorG, colorB), 1.0);
   
 }

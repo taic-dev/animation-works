@@ -10,6 +10,9 @@ export class Webgl {
   material: THREE.ShaderMaterial | undefined;
   mesh: THREE.Mesh | undefined;
   uniforms: any;
+  targetScrollY: number;
+  currentScrollY: number;
+  scrollOffset: number;
   images: HTMLImageElement[];
   planeArray: { image: HTMLImageElement; mesh: THREE.Mesh }[];
 
@@ -21,9 +24,14 @@ export class Webgl {
     this.material;
     this.mesh;
     this.uniforms;
+    this.targetScrollY = 0;
+    this.currentScrollY = 0;
+    this.scrollOffset = 0;
 
     this.render = this.render.bind(this);
-    this.images = ([...document.querySelectorAll(".item-image img")] as HTMLImageElement[]);
+    this.images = [
+      ...document.querySelectorAll(".item-image img"),
+    ] as HTMLImageElement[];
     this.planeArray = [];
   }
 
@@ -59,6 +67,7 @@ export class Webgl {
       uTexture: { value: texture },
       uImageAspect: { value: image.naturalWidth / image.naturalHeight },
       uPlaneAspect: { value: image.clientWidth / image.clientHeight },
+      uOffset: { value: this.scrollOffset },
     };
 
     this.material = new THREE.ShaderMaterial({
@@ -71,7 +80,7 @@ export class Webgl {
     return this.mesh;
   }
 
-  setMeshPosition(image: HTMLImageElement, mesh: THREE.Mesh) {
+  setMeshPosition(image: HTMLImageElement, mesh: THREE.Mesh, offset: number) {
     const rect = image.getBoundingClientRect();
     mesh.scale.x = rect.width;
     mesh.scale.y = rect.height;
@@ -80,14 +89,25 @@ export class Webgl {
     const y = -rect.top + window.innerHeight / 2 - rect.height / 2;
 
     mesh.position.set(x, y, mesh.position.z);
+    (mesh.material as any).uniforms.uOffset.value = offset;
   }
 
-  updateMesh(img: HTMLImageElement, mesh: any) {
-    this.setMeshPosition(img, mesh);
+  updateMesh(img: HTMLImageElement, mesh: any, offset: number) {
+    this.setMeshPosition(img, mesh, offset);
+  }
+
+  onScroll() {
+    const lerp = (start: number, end: number, multiplier: number) => {
+      return (1 - multiplier) * start + multiplier * end;
+    };
+
+    this.targetScrollY = document.documentElement.scrollTop;
+    this.currentScrollY = lerp(this.currentScrollY, this.targetScrollY, 0.1);
+    this.scrollOffset = this.targetScrollY - this.currentScrollY;
   }
 
   onResize() {
-    if(!this.camera || !this.renderer) return
+    if (!this.camera || !this.renderer) return;
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -107,13 +127,15 @@ export class Webgl {
       this.images.forEach((image) => {
         const mesh = this.setMesh(image);
         this.scene.add(mesh);
-        this.setMeshPosition(image, mesh);
+        this.setMeshPosition(image, mesh, 0);
         this.planeArray.push({ image, mesh });
       });
     });
 
-    for(const plane of this.planeArray) {
-      this.updateMesh(plane.image, plane.mesh);
+    this.onScroll();
+
+    for (const plane of this.planeArray) {
+      this.updateMesh(plane.image, plane.mesh, this.scrollOffset);
     }
 
     this.renderer?.render(this.scene, this.camera);
