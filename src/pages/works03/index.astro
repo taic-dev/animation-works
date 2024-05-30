@@ -1,0 +1,22 @@
+---
+import { ACCESSORY_DATA } from "./ts/constants";
+import Layout from "./components/Layout.astro";
+---
+
+<Layout>
+  <main id="swup" class="transition-fade">
+    <div class="wrapper">
+      <div class="title">
+        <h2>Accessory</h2>
+        <span></span>
+      </div>
+      <ul class="list">
+        { ACCESSORY_DATA.map((data) => (
+          <li class="item transition-slide-out">
+            <a href={data.link}><div class="item-image"><img src={data.image} alt=""></div></a>
+          </li>
+        )) }
+      </ul>
+    </div>
+  </main>
+</Layout>
