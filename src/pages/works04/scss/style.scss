@@ -17,7 +17,7 @@ section {
 
   @for $i from 1 through 5 {
     &:nth-child(#{$i + 1}) {
-      background-image: url(../img/section#{$i}.png);
+      background-image: url(images/works04/section#{$i}.png);
     }
   }
 }
@@ -77,5 +77,34 @@ section {
   p {
     font-family: Nacelle;
     font-size: 5vw;
+  }
+}
+
+.slider {
+  position: relative;
+  overflow: hidden;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  height: 100vh;
+}
+
+
+.slider-list {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: flex;
+  gap: 10%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.slider-item {
+  flex-shrink: 0;
+  width: 80%;
+
+  img {
+    width: 100%;
   }
 }
