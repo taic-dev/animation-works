@@ -1,0 +1,10 @@
+@for $i from 1 through 4 {
+  section {
+    height: 100vh;
+    background-size: cover;
+    
+    &:nth-child(#{$i}) {
+      background-image: url(../img/section#{$i}.png);
+    }
+  }
+}
