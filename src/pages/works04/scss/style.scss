@@ -1,10 +1,72 @@
-@for $i from 1 through 4 {
-  section {
-    height: 100vh;
-    background-size: cover;
-    
-    &:nth-child(#{$i}) {
+@font-face {
+  font-family: "Nacelle";
+  src: url(../fonts/Nacelle-HeavyItalic.otf);
+}
+
+section {
+  width: 100%;
+  height: auto;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i + 1}) {
       background-image: url(../img/section#{$i}.png);
     }
+  }
+}
+
+.hero {
+  height: 100vh;
+}
+
+.hero-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  h1 {
+    font-family: Nacelle;
+    font-size: 5vw;
+  }
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 200vh;
+  margin-left: 10%;
+}
+
+.content {
+  max-width: 540px;
+  padding: 32px;
+  border-radius: 16px;
+  background-color: #fff;
+
+  h2 {
+    font-family: Nacelle;
+    font-size: 3.5vw;
+    margin-bottom: 3%;
+  }
+
+  p {
+    line-height: 2;
+  }
+}
+
+.end {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  p {
+    font-family: Nacelle;
+    font-size: 5vw;
   }
 }
