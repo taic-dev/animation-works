@@ -1,0 +1,7 @@
+@use "./variables.scss" as *;
+
+@mixin slideInClip($delay) {
+  clip-path: inset(100% 0 0 0);
+  -webkit-clip-path: inset(100% 0 0 0);
+  animation: #{$duration}s #{$delay}s #{$easing-transform} forwards slideInClip;
+}

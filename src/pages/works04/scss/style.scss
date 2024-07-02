@@ -1,3 +1,7 @@
+@use "./variables.scss" as *;
+@use "./animation.scss" as *;
+@use "./keyframes.scss" as *;
+
 @font-face {
   font-family: "Nacelle";
   src: url(../fonts/Nacelle-HeavyItalic.otf);
@@ -47,6 +51,7 @@ section {
   padding: 32px;
   border-radius: 16px;
   background-color: #fff;
+  clip-path: inset(100% 0 0 0);
 
   h2 {
     font-family: Nacelle;
@@ -57,6 +62,10 @@ section {
   p {
     line-height: 2;
   }
+}
+
+.content.is-active {
+  @include slideInClip(0);
 }
 
 .end {
