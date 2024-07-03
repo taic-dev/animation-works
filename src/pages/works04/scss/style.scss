@@ -8,11 +8,13 @@
 }
 
 section {
+  position: re;
   width: 100%;
   height: auto;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
+  // responsive auto 100%
   background-repeat: no-repeat;
 
   @for $i from 1 through 5 {
@@ -117,3 +119,4 @@ section {
     width: 100%;
   }
 }
+
