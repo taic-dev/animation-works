@@ -3,7 +3,6 @@ import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import { splitSpanString } from "./utils";
 import { Particle } from "./particle";
 import { IS_LOADING } from "./constants";
-import { EASING } from "./constants";
 
 window.addEventListener("load", () => {
   const loadingTitle = document.querySelector(".loading__title");

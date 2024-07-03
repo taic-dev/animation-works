@@ -6,11 +6,11 @@ const wrappers = [...document.querySelectorAll(".wrapper")];
 const contents = [...document.querySelectorAll(".content")];
 const stickyImgs = [...document.querySelectorAll(".sticky-img")];
 
-const options = {
-  root: document.querySelector(".body"),
-  rootMargin: "center",
-  threshold: 1.0,
-};
+// const options = {
+//   root: document.querySelector(".body"),
+//   rootMargin: "center",
+//   threshold: 1.0,
+// };
 
 function addClassIsActive(entries: IntersectionObserverEntry[]) {
   entries.forEach((entry) => {

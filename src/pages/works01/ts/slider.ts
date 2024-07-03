@@ -23,7 +23,7 @@ export class Slider {
   }
 
   _setPosition(elements: Element[]) {
-    elements.forEach((element, index) => {
+    elements.forEach((element) => {
       const rect = element.getBoundingClientRect();
       this.rects.push(rect.top);
     });
@@ -64,7 +64,7 @@ export class Slider {
 
       element.addEventListener("click", () => {
         this._scrollPage(this.rects[index]);
-        this.pagination.forEach((element, index) => {
+        this.pagination.forEach((element) => {
           element.classList.remove("is-active");
         });
         this.index = index;

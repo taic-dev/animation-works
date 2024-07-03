@@ -1,4 +1,4 @@
-import { PARTICLE_NUMBER, WINDOW } from "./constants";
+import { PARTICLE_NUMBER } from "./constants";
 import type {
   CanvasContextType,
   ParticleType,
