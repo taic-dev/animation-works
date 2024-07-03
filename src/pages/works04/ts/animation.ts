@@ -2,6 +2,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
+const wrappers = [...document.querySelectorAll(".wrapper")];
 const contents = [...document.querySelectorAll(".content")];
 
 const options = {
@@ -20,14 +21,18 @@ function addClassIsActive(entries: IntersectionObserverEntry[]) {
 
 const observer = new IntersectionObserver(addClassIsActive);
 contents.forEach((element) => observer.observe(element));
+wrappers.forEach((element) => observer.observe(element));
 
 const container = document.querySelector<HTMLElement>(".slider");
 const sliderWrapper = document.querySelector<HTMLElement>(".slider-inner");
 const sliderList = document.querySelector<HTMLElement>(".slider-list");
 const sliderItems = document.querySelectorAll(".slider-item");
 
+const totalWidth = Array.from(sliderItems).reduce((acc, item) => acc + item.offsetWidth, 0);
+
 gsap.to(sliderItems, {
-  xPercent: -100 * (sliderItems.length - 1),
+  // xPercent: -100 * (sliderItems.length - 1),
+  x: () => -(totalWidth - sliderWrapper.offsetWidth),
   ease: "Power0.easeNone",
   scrollTrigger: {
     trigger: container,
@@ -35,7 +40,8 @@ gsap.to(sliderItems, {
     pin: true,
     scrub: true,
     markers: true,
-    end: () => `+=${sliderWrapper?.offsetWidth * 3}`,
+    // end: () => `+=${sliderWrapper?.offsetWidth * 3}`,
+    end: () => `+=${totalWidth - sliderWrapper.offsetWidth}`,
     anticipatePin: 1,
     invalidateOnRefresh: true,
   },
