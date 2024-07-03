@@ -27,7 +27,7 @@ stickyImgs.forEach((element) => observer.observe(element));
 
 const container = document.querySelector<HTMLElement>(".slider");
 const sliderWrapper = document.querySelector<HTMLElement>(".slider-inner");
-const sliderList = document.querySelector<HTMLElement>(".slider-list");
+// const sliderList = document.querySelector<HTMLElement>(".slider-list");
 const sliderItems = document.querySelectorAll<HTMLElement>(".slider-item");
 
 const totalWidth = Array.from(sliderItems).reduce((acc, item) => acc + item.offsetWidth, 0);
