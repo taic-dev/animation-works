@@ -8,7 +8,7 @@
 }
 
 section {
-  position: re;
+  position: relative;
   width: 100%;
   height: auto;
   background-attachment: fixed;
@@ -24,19 +24,47 @@ section {
   }
 }
 
-.hero {
+.sample-text {
+  padding: 5%;
   height: 100vh;
 }
 
-.hero-inner {
+.sample-text__list {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px;
   height: 100%;
+}
 
-  h1 {
-    font-family: Nacelle;
-    font-size: 5vw;
+.sample-text__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: serif;
+  width: calc(50% - 25px);
+  font-weight: 600;
+  font-size: 2.5rem;
+  letter-spacing: 5px;
+}
+
+.sample1 {
+  filter: blur(10px);
+  opacity: 0;
+  animation: blurText 3s 1s $easing-transform infinite;
+}
+
+@keyframes blurText {
+  0% {
+    filter: blur(10px);
+    opacity: 0;
+  }
+  50% {
+    filter: blur(0);
+    opacity: 1;
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
   }
 }
 
