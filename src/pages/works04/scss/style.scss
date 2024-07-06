@@ -40,7 +40,6 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: serif;
   width: calc(50% - 25px);
   font-weight: 600;
   font-size: 2.5rem;
@@ -48,6 +47,7 @@ section {
 }
 
 .sample1 {
+  font-family: serif;
   filter: blur(10px);
   opacity: 0;
   animation: blurText 3s 1s $easing-transform infinite;
@@ -65,6 +65,28 @@ section {
   100% {
     filter: blur(0);
     opacity: 1;
+  }
+}
+
+.sample2 p {
+  font-family: "Nacelle";
+  font-size: 4rem;
+  letter-spacing: 10px;
+  background: linear-gradient(to right,#333, #3b8fc0, #333,#3b8fc0);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+
+  animation: gradientText 1s 1s $easing-transform;
+}
+
+@keyframes gradientText {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
@@ -125,7 +147,6 @@ section {
   height: 100vh;
 }
 
-
 .slider-list {
   position: absolute;
   top: 50%;
@@ -147,4 +168,3 @@ section {
     width: 100%;
   }
 }
-
