@@ -1,0 +1,17 @@
+@use 'sass:math';
+
+@function rem($size) {
+  @return math.div($size, 16) * 1rem;
+}
+
+@function vw($size) {
+  @return math.div($size, 1920) * 100vw;
+}
+
+@function ls($size) {
+  @return math.div($size, 1000) * 1em;
+}
+
+@function lh($fs, $lh) {
+  @return $lh / $fs;
+}
