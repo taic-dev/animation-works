@@ -13,7 +13,9 @@ export default defineConfig({
     ],
     ssr: {
       noExternal: [
-          'gsap'
+          'gsap',
+          'gsap/CustomEase',
+          'gsap/ScrollTrigger'
       ]
   }
   },
