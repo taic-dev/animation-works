@@ -13,5 +13,5 @@
 }
 
 @function lh($fs, $lh) {
-  @return $lh / $fs;
+  @return calc($lh / $fs);
 }

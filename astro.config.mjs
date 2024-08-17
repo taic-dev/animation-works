@@ -11,5 +11,10 @@ export default defineConfig({
         watch: false,
       }),
     ],
+    ssr: {
+      noExternal: [
+          'gsap'
+      ]
+  }
   },
 });
